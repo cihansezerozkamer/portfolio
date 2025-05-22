@@ -3,76 +3,813 @@
 <head>
   <meta charset="UTF-8">
   <title>Cihan Sezer Özkamer – Game Developer Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Roboto and Press Start 2P for fun/retro headings -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
+    /* Reset and base styles */
+    html {
+      scroll-behavior: smooth;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 2rem;
+      font-family: 'Roboto', Arial, sans-serif;
+      /* Game-inspired background: pixel grid, gradient, and subtle overlay */
+      background:
+        repeating-linear-gradient(135deg, #3a86ff22 0 2px, transparent 2px 40px),
+        repeating-linear-gradient(45deg, #8338ec22 0 2px, transparent 2px 40px),
+        linear-gradient(120deg, #0f1021 0%, #3a86ff 60%, #8338ec 100%);
+      margin: 0;
+      padding: 0;
+      color: #22223b;
+      max-width: 100vw;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* Subtle pixel/arcade overlay effect */
+    body::before {
+      content: "";
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.13;
+      background-image:
+        url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="40" height="40" fill="none"/><rect x="0" y="0" width="4" height="4" fill="%238338ec"/><rect x="36" y="36" width="4" height="4" fill="%233a86ff"/></svg>');
+      background-repeat: repeat;
+      background-size: 40px 40px;
+      mix-blend-mode: lighten;
+    }
+    .container {
       max-width: 900px;
-      margin: auto;
-      color: #333;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(60,60,120,0.12);
+      position: relative;
+      z-index: 1;
     }
-    h1, h2 { color: #1a1a1a; }
-    .project {
-      background: #fff;
-      padding: 1rem;
-      margin-bottom: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
     }
-    img {
-      width: 100%;
-      max-width: 700px;
-      border-radius: 8px;
-      margin-top: 0.5rem;
+    header h1 {
+      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+      background: linear-gradient(90deg, #3a86ff, #8338ec 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 12px #3a86ff33, 0 4px 24px #8338ec22;
     }
-    a {
-      color: #0366d6;
+    header p {
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1rem;
+      color: #4f4f6b;
+      margin-bottom: 0.7rem;
+      text-shadow: 0 1px 6px #3a86ff11;
+    }
+    .links {
+      margin-bottom: 1.2rem;
+    }
+    .links a {
+      color: #3a86ff;
+      font-weight: 500;
+      margin: 0 0.7rem;
       text-decoration: none;
+      transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 0.98rem;
+    }
+    .links a:hover {
+      color: #8338ec;
+      border-bottom: 2px solid #8338ec;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      z-index: 10;
+      padding: 0.7rem 0;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 2px 8px rgba(60,60,120,0.07);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      animation: fadeInDown 1s;
+      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
+      font-size: 0.93rem;
+      letter-spacing: 0.5px;
+    }
+    nav a {
+      color: #22223b;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      font-family: inherit;
+      font-size: 0.97em;
+    }
+    nav a:hover, nav a.active {
+      background: #e0e7ff;
+      color: #3a86ff;
+    }
+    h2 {
+      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
+      font-size: 1.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: #3a86ff;
+      border-left: 5px solid #8338ec;
+      padding-left: 0.7rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px #3a86ff22;
+    }
+    .project {
+      background: linear-gradient(100deg, #f8fafc 60%, #e0e7ff 100%);
+      padding: 1.2rem 1rem;
+      margin-bottom: 2.2rem;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(60,60,120,0.09);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s forwards;
+      animation-delay: var(--delay, 0s);
+      border: 2px solid #3a86ff22;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 0.98rem;
+    }
+    .project:hover {
+      transform: scale(1.025) translateY(-4px);
+      box-shadow: 0 8px 32px rgba(60,60,120,0.13), 0 0 0 2px #8338ec33;
+      border-color: #8338ec55;
+    }
+    .project h3 {
+      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
+      margin-top: 0;
+      color: #8338ec;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 8px #3a86ff22;
+      letter-spacing: 0.5px;
+    }
+    .project p {
+      margin: 0.5rem 0 1rem 0;
+      color: #44446b;
+      line-height: 1.6;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 0.98rem;
+    }
+    .project img {
+      width: 100%;
+      max-width: 650px;
+      border-radius: 10px;
+      margin: 1rem 0 0.5rem 0;
+      box-shadow: 0 2px 12px rgba(60,60,120,0.08);
+      transition: filter 0.3s;
+      filter: grayscale(10%) brightness(0.97);
+      border: 2px solid #3a86ff22;
+    }
+    .project img:hover {
+      filter: none;
+      border-color: #8338ec55;
+    }
+    .project a {
+      color: #3a86ff;
+      font-weight: 500;
+      text-decoration: underline;
+      transition: color 0.2s;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 0.97em;
+    }
+    .project a:hover {
+      color: #8338ec;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+      background: #e0e7ff;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #bdbdfc;
+      border-radius: 8px;
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    /* Responsive */
+    @media (max-width: 700px) {
+      .container { padding: 1rem; }
+      h2 { font-size: 1.1rem; }
+      header h1 { font-size: 1rem; }
+      .project img { max-width: 100%; }
+      nav { font-size: 0.75rem; }
+      .project, .project p { font-size: 0.93rem; }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <h1>Cihan Sezer Özkamer</h1>
+      <p>Game Developer &mdash; BSc in Computer Engineering</p>
+      <div class="links">
+        <a href="https://github.com/cihansezerozkamer" target="_blank">GitHub</a>
+        <a href="assets/CV.pdf" target="_blank">Download CV</a>
+      </div>
+    </header>
+    <nav>
+      <a href="#projects" class="active">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-  <h1>Cihan Sezer Özkamer</h1>
-  <p>Game Developer | BSc in Computer Engineering</p>
+    <section id="projects">
+      <h2>Portfolio</h2>
+
+      <div class="project" style="--delay:0.1s">
+        <p>
+          <strong>Mobile Game Demo:</strong> Developed to master mobile game development principles, focusing on hyper-casual design and optimization.
+        </p>
+        <ul>
+          <li>Utilized <b>Addressables</b> for efficient asset management.</li>
+          <li>Implemented <b>Scriptable Objects</b> and <b>Object Pooling</b> for performance.</li>
+          <li>Applied <b>Singleton</b> and <b>Cinematic</b> patterns.</li>
+          <li>Learned advanced optimization and production workflows.</li>
+        </ul>
+        <p>
+          <em>Special thanks to my mentor at No Surrender Studios for guidance.</em>
+        </p>
+        <img src="assets/bullet-game.png" alt="Mobile Game Screenshot">
+        <div style="margin: 1.2rem 0;"></div>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/8B4dnCis_6c" title="Destroyer Bullet-Rush Clone Gameplay" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius:10px; box-shadow:0 2px 12px rgba(60,60,120,0.08);"></iframe>
+        <p><a href="https://github.com/cihansezerozkamer/internship-BulletRush" target="_blank">View on GitHub</a></p>
+</div>
+<div class="project" style="--delay:0.3s">
+  <h3>Say or Boom</h3>
   <p>
-    <a href="https://github.com/cihansezerozkamer" target="_blank">GitHub</a> |
-    <a href="cv.pdf" target="_blank">Download CV</a>
+    <strong>Mobile Game Demo:</strong> This project was developed to gain practical experience with mobile game monetization strategies, including Ads and LevelPlay integration, and to complete the process of publishing a game on Google Play.
   </p>
+  <ul>
+    <li>Utilized <b>Addressables</b> for efficient asset management.</li>
+    <li>Implemented <b>Scriptable Objects</b> and <b>Object Pooling</b> for performance.</li>
+    <li>Applied <b>Singleton</b> pattern for game state management.</li>
+    <li>Learned Unity Ads, LevelPlay, IronSource, and Google Ads integration for monetization.</li>
+    <li>To unlock locked levels and contents, players can watch Ads or make in-app purchases.</li>
 
-  <h2>Selected Projects</h2>
-
-  <div class="project">
-    <h3>Say or Boom</h3>
-    <p>Real-time, face-to-face party game designed to reduce screen addiction and boost in-person interaction. Players must name examples quickly before the bomb explodes.</p>
-    <img src="sayorboom.jpg" alt="Say or Boom Screenshot">
-    <p><a href="https://github.com/cihansezerozkamer/Say-or-Boom" target="_blank">View on GitHub</a></p>
+  </ul>
+  <div style="display: flex; gap: 1rem; margin: 1rem 0; justify-content: flex-start; flex-wrap: wrap;">
+    <div style="display: flex; flex-direction: column; align-items: center; width: 30%; min-width: 120px;">
+      <img src="assets/sayorboom.png" alt="Say or Boom Preview" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); object-fit: cover;">
+      <span style="margin-top: 0.5rem; font-size: 0.95rem; color: #4f4f6b;"><b>Gameplay Preview</b></span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; width: 30%; min-width: 120px;">
+      <img src="assets/sayorboom2.png" alt="Say or Boom Preview" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); object-fit: cover;">
+      <span style="margin-top: 0.5rem; font-size: 0.95rem; color: #4f4f6b;"><b>List of Levels</b></span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; width: 30%; min-width: 120px;">
+      <img src="assets/sayorboom3.png" alt="Say or Boom Preview" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); object-fit: cover;">
+      <span style="margin-top: 0.5rem; font-size: 0.95rem; color: #4f4f6b;"><b>Main Menu</b></span>
+    </div>
   </div>
 
-  <div class="project">
-    <h3>Bullet Rush-style Mobile Game</h3>
-    <p>A fast-paced hyper-casual mobile game developed during my internship at No Surrender Studios. Focused on optimization using object pooling and performance patterns in Unity.</p>
-    <img src="bullet-game.jpg" alt="Mobile Game Screenshot">
-  </div>
+  <!-- How to Play Section (collapsible) -->
+  <div style="margin: 1.5rem 0;"></div>
+  <button id="toggle-howtoplay" type="button" style="background:#3a86ff;color:#fff;border:none;padding:0.7rem 1.2rem;border-radius:8px;font-size:1rem;cursor:pointer;box-shadow:0 2px 8px rgba(60,60,120,0.08);display:flex;align-items:center;gap:0.5rem;">
+    <span id="howtoplay-arrow" style="transition:transform 0.2s;">&#9654;</span>
+    <span><b>How to Play</b></span>
+  </button>
+  <div id="howtoplay-content" style="display:none; padding: 1.2rem; background: #f8fafc; border-radius: 12px; box-shadow: 0 2px 12px rgba(60,60,120,0.06); margin-top:1rem;">
+    <h4 style="margin-top:0; color:#3a86ff;">🎮 Say or Boom – Game Instructions</h4>
+    <p><b>Type:</b> Face-to-face party game<br>
+    <b>Players:</b> 2 or more<br>
+    <b>Platform:</b> Mobile (pass-the-phone style)<br>
+    <b>Goal:</b> Avoid getting “boomed” by quickly answering before time runs out!</p>
 
-  <div class="project">
-    <h3>2D Pathfinding Visualizer (Graduation Project)</h3>
-    <p>Implemented DFS, BFS, and A* algorithms in Unity. Visualizes search behavior in grid-based levels. Bridges computer science theory with practical game dev applications.</p>
-    <img src="pathfinding.jpg" alt="Pathfinding Screenshot">
-  </div>
+    <h5 style="margin-bottom:0.3rem;">🧠 Objective</h5>
+    <p style="margin-top:0;">Players must name examples based on a prompt (e.g., a category or location) before the <b>bomb timer</b> explodes. You must pass the phone before time runs out. The one holding it when it goes off loses the round.</p>
 
-  <div class="project">
-    <h3>VR Interaction Demos</h3>
-    <p>Exploring immersive interaction in VR using OpenXR. Built experimental scenes with real-world input and spatial navigation.</p>
-    <img src="vr-demo.jpg" alt="VR Demo Screenshot">
-  </div>
+    <h5 style="margin-bottom:0.3rem;">🕹️ How to Play</h5>
+    <ol style="margin-top:0;">
+      <li><b>Start the Game</b><br>
+        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
+          <li>Open the app and tap “Start”</li>
+          <li>A <b>random prompt/location</b> appears (e.g., “Things you see in a supermarket”)</li>
+        </ul>
+      </li>
+      <li><b>First Player Responds</b><br>
+        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
+          <li>Player 1 reads the prompt aloud and <b>says a valid answer</b></li>
+          <li>After answering, <b>pass the phone to the next player</b></li>
+        </ul>
+      </li>
+      <li><b>Next Player Answers</b><br>
+        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
+          <li>Player 2 sees the same prompt</li>
+          <li>Must give a different correct answer <b>quickly</b></li>
+          <li>Then <b>pass the phone again</b></li>
+        </ul>
+      </li>
+      <li><b>Tick-Tock... Boom!</b><br>
+        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
+          <li>The timer is ticking secretly in the background</li>
+          <li>The player holding the phone when it explodes (sound/vibration) <b>loses the round</b></li>
+        </ul>
+      </li>
+      <li><b>Repeat &amp; Score</b><br>
+        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
+          <li>You can track points manually or just play for fun</li>
+          <li>First to lose 3 times? Do a dare, take a penalty, or just laugh it off!</li>
+        </ul>
+      </li>
+    </ol>
 
-  <div class="project">
-    <h3>Interactive Survivor Prototype (In Progress)</h3>
-    <p>Emotionally-driven top-down survivor game exploring family bonds and resilience. Combines tight mechanics with emergent story systems.</p>
-    <img src="survivor.jpg" alt="Survivor Game Concept">
+    <h5 style="margin-bottom:0.3rem;">🎯 Game Highlights</h5>
+    <ul style="margin-top:0;">
+      <li>Designed for <b>live interaction</b> — no texting, no solo play</li>
+      <li>Encourages <b>quick thinking, verbal creativity</b>, and <b>social bonding</b></li>
+      <li>Great for parties, classrooms, or family time</li>
+      <li>Aims to reduce screen addiction by promoting <b>active face-to-face gameplay</b></li>
+    </ul>
   </div>
+  <p><a href="https://github.com/cihansezerozkamer/Say-or-Boom" target="_blank">View on GitHub</a></p>
+</div>
+<script>
+  // Collapsible How to Play section
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('toggle-howtoplay');
+    const content = document.getElementById('howtoplay-content');
+    const arrow = document.getElementById('howtoplay-arrow');
+    btn.addEventListener('click', function() {
+      if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'block';
+        arrow.style.transform = 'rotate(90deg)';
+      } else {
+        content.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+</script>
 
+      <div class="project" style="--delay:0.6s">
+        <h3>
+          <span style="color:#3a86ff;">2023 Fundamental Game Design Lecture Project</span>
+        </h3>
+        <h4 style="margin-top:0.2rem; color:#3a86ff; font-size:1.05rem; font-weight:500;">
+          Split-Screen Local Beach Volleyball
+        </h4>
+        <ul style="list-style: disc; margin:0 0 1rem 1.2rem; color:#44446b; font-size:1rem; line-height:1.7;">
+          <li>
+        Developed as part of the 
+        <span style="color:#3a86ff; font-weight:600;">Computer Engineering</span> curriculum 
+        (<span style="color:#3a86ff; font-weight:600;">Fundamental Game Design</span> lecture).
+          </li>
+          <li>
+        Focused on animation pipeline: 
+        <span style="color:#0f0f0f; font-weight:600;">FBX import</span>, 
+        <span style="color:#000000; font-weight:600;">retargeting</span>, 
+        <span style="color:#000000; font-weight:600;">animation controllers</span>, 
+        and <span style="color:#020202; font-weight:600;">smooth transitions</span> in 
+        <span style="color:#000000; font-weight:600;">Unity URP</span>.
+          </li>
+          <li>
+        Used <span style="color:#000000; font-weight:600;">low-poly assets</span> for performance and clarity.
+          </li>
+          <li>
+        Designed for <span style="color:#000000; font-weight:600;">split-screen</span>, 
+        <span style="color:#000000; font-weight:600;">two-player local multiplayer</span> on a single computer.
+          </li>
+        </ul>
+        <img src="assets/Beachvolley.png" alt="Beach Volleyball Screenshot" style="width: 100%; max-width: 650px; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08);">
+        <p style="margin-top:0.5rem; color:#4f4f6b; font-size:1rem;">
+          <span style="color:#3a86ff; font-weight:600;">Game Preview</span>
+        </p>
+      </div>
+
+      <div class="project" style="--delay:0.8s">
+        <h3>TANK2023 – 3D Version of Atari's TANK1991</h3>
+        <ul>
+          <li><b>Project Overview:</b>
+        <ul>
+          <li>A modern 3D reimagining of the classic Atari TANK1991, where players defend an eagle base from AI-controlled enemy tanks.</li>
+          <li>Developed as a final project during the Techcareer Game Developer Bootcamp, resulting in a Junior Game Developer Certificate.</li>
+        </ul>
+          </li>
+          <li><b>Technical Highlights:</b>
+        <ul>
+          <li>Built in Unity with full NavMesh-based AI navigation for intelligent enemy pathfinding and behavior.</li>
+          <li>Modular level design using Prefab Variants for scalable and reusable assets.</li>
+          <li>Core gameplay: shooting, health tracking, enemy spawning, and win/lose states, all managed in a single, complete scene.</li>
+        </ul>
+          </li>
+          <li><b>Gameplay and Design:</b>
+        <ul>
+          <li>Square map layout with structured enemy waves and strategic player positioning.</li>
+          <li>Balanced arcade-style action with AI-driven challenge to modernize the retro experience.</li>
+        </ul>
+          </li>
+          <li><b>Educational Contribution:</b>
+        <ul>
+          <li>Demonstrated proficiency in game architecture, AI programming, and Unity scene management under real bootcamp evaluation.</li>
+          <li>Validated technical skills and production workflow under industry-simulated deadlines and review.</li>
+        </ul>
+          </li>
+          <li><b>Scholarly Relevance:</b>
+        <ul>
+          <li>Explores transforming legacy 2D arcade mechanics into a modern 3D gameplay framework.</li>
+          <li>Contributes to AI-driven game design, player-environment interaction, and the educational value of reinterpreting classic games with contemporary tools.</li>
+        </ul>
+          </li>
+        </ul>
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 1.2rem auto 1.8rem auto;">
+          <span style="
+            display: block;
+            font-size: 1.12rem;
+            color: #3a86ff;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            margin-bottom: 0.7rem;
+            text-align: center;
+            text-shadow: 0 2px 8px #e0e7ff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            border-bottom: 2px solid #bdbdfc;
+            padding-bottom: 0.3rem;
+            width: fit-content;
+          ">
+            <span style="font-size:1.25rem; color:#8338ec; vertical-align:middle;">🎮</span> Gameplay Scene
+          </span>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; align-items: flex-start; width: 100%;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <img src="assets/tank.png" alt="TANK2023 Gameplay Screenshot"
+                style="
+                  width: 320px;
+                  max-width: 95vw;
+                  aspect-ratio: 4/3;
+                  border-radius: 16px;
+                  border: 3px solid #3a86ff;
+                  box-shadow: 0 4px 18px rgba(60,60,120,0.13);
+                  object-fit: cover;
+                  margin-bottom: 0.5rem;
+                  background: #f8fafc;
+                  transition: box-shadow 0.2s, border-color 0.2s;
+                ">
+              <span style="font-size: 0.98rem; color: #4f4f6b; font-weight: 500; margin-top: 0.2rem; letter-spacing: 0.2px;">
+                <span style="color:#3a86ff;">Main Gameplay</span>
+              </span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <img src="assets/tank2.png" alt="TANK2023 Enemy AI Screenshot"
+                style="
+                  width: 320px;
+                  max-width: 95vw;
+                  aspect-ratio: 4/3;
+                  border-radius: 16px;
+                  border: 3px solid #8338ec;
+                  box-shadow: 0 4px 18px rgba(60,60,120,0.13);
+                  object-fit: cover;
+                  margin-bottom: 0.5rem;
+                  background: #f8fafc;
+                  transition: box-shadow 0.2s, border-color 0.2s;
+                ">
+              <span style="font-size: 0.98rem; color: #4f4f6b; font-weight: 500; margin-top: 0.2rem; letter-spacing: 0.2px;">
+                <span style="color:#8338ec;">Eagle Action</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project" style="--delay:0.8s">
+        <h3>VR Interaction Demos</h3>
+        <ul>
+          <li><b>Immersive Prototyping:</b>
+        <ul>
+          <li>Explored advanced VR interaction design using Unity and OpenXR.</li>
+          <li>Integrated the Pico 4 headset to capture real-world user input.</li>
+        </ul>
+          </li>
+          <li><b>Spatial Navigation:</b>
+        <ul>
+          <li>Developed experimental scenes that implement natural locomotion systems, including both direct movement and teleportation.</li>
+          <li>Incorporated climbing mechanics to simulate realistic vertical movement within the virtual space.</li>
+        </ul>
+          </li>
+          <li><b>Interaction Mechanics:</b>
+        <ul>
+          <li>Designed and tested object manipulation features such as grabbable items and snap zones.</li>
+          <li>Implemented gesture-based controls to enhance intuitive interaction and responsiveness.</li>
+        </ul>
+          </li>
+          <li><b>User Feedback Systems:</b>
+        <ul>
+          <li>Focused on delivering immediate, responsive feedback to user actions for improved immersion.</li>
+          <li>Emphasized hand presence and ergonomic comfort to support extended VR usage.</li>
+        </ul>
+          </li>
+          <li><b>Academic and Practical Relevance:</b>
+        <ul>
+          <li>These demos represent a systematic exploration of VR interaction paradigms aimed at creating more natural and immersive virtual environments.</li>
+          <li>The work contributes to both the practical development of VR experiences and academic understanding of user-centered design in virtual reality.</li>
+        </ul>
+          </li>
+        </ul>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.2rem auto; justify-content: center; align-items: center;"></div>
+          <img src="assets/VR.png" alt="VR Demo Screenshot" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
+          <img src="assets/VR2.png" alt="VR Demo Screenshot 2" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
+          <img src="assets/VR3.png" alt="VR Demo Screenshot 3" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
+          <img src="assets/VR4.png" alt="VR Demo Screenshot 4" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
+        </div>
+
+      <div class="project" style="--delay:1s">
+        <h3>2021-2022 Game Design Lecture Project</h3>
+        <h4 style="margin-top:0.2rem; color:#3a86ff; font-size:1.05rem; font-weight:500;">
+          Age of Vehicles
+        </h4>
+        <p>
+          <strong>Age of Vehicles Endless Runner Driving Game:</strong> This project originated from my longstanding interest in designing games that reflect technological progression. "Age of Vehicles" is a top-down <b>endless runner</b> driving game where players advance through distinct historical eras, each characterized by unique vehicles and collectible items. The gameplay begins in the primitive age, where players operate a wooden car to gather fruits. As the game progresses, players unlock new ages—such as the Primitive Age, featuring 1990s-style vehicles—and ultimately reach the Space Age, each with its own thematic collectibles and challenges.
+        </p>
+        <ul>
+          <li>
+            Developed as part of the <span style="color:#3a86ff; font-weight:600;">Game Design</span> curriculum, focusing on the integration of historical context into gameplay mechanics.
+          </li>
+          <li>
+            Implemented advanced <b>wheel physics</b> in Unity, overcoming significant technical challenges to achieve realistic vehicle behavior across different eras.
+          </li>
+          <li>
+            Designed and integrated a robust <b>data backup and save system</b> to ensure persistent player progress and seamless transitions between game stages.
+          </li>
+          <li>
+            Explored procedural content generation to enhance replayability and provide a dynamic player experience.
+          </li>
+        </ul>
+        <div class="age-of-vehicles-gallery" style="display: flex; flex-direction: column; align-items: center; gap: 1.2rem;">
+          <div class="age-image-group" style="display: flex; flex-direction: column; align-items: center;">
+            <span style="
+              display: block; 
+              margin-bottom: 0.5rem; 
+              font-size: 1.05rem; 
+              color: #3a86ff; 
+              font-weight: 800; 
+              letter-spacing: 0.5px; 
+              text-align: center; 
+              text-shadow: 0 2px 8px #e0e7ff;
+              font-family: 'Segoe UI', Arial, sans-serif;
+            ">
+              <b style="font-weight: 500; font-family: inherit; letter-spacing: 0.5px;">Primitive Age</b>
+            </span>
+            <div style="display: flex; gap: 10px; align-items: center; justify-content: center;"></div>
+              <img 
+                src="assets/car1.png" 
+                alt="Age of Vehicles Primitive Age Car 1" 
+                style="
+                  width: 80%;
+                  border-radius: 8px;
+                  box-shadow: 0 1px 8px rgba(60,60,120,0.10);
+                  object-fit: cover;
+                  border: 2px solid #e0e7ff;
+                  opacity: 0.85;
+                  background: #fff;
+                  padding: 0;
+                "
+              >
+              <div style="width:10px;"></div>
+              <img 
+                src="assets/car12.png" 
+                alt="Age of Vehicles Primitive Age Car 12" 
+                style="
+                  width: 80%;
+                  border-radius: 8px;
+                  box-shadow: 0 1px 8px rgba(60,60,120,0.10);
+                  object-fit: cover;
+                  border: 2px solid #e0e7ff;
+                  opacity: 0.85;
+                  background: #fff;
+                  padding: 0;
+                "
+              >
+              <div style="width:10px;"></div>
+              <img 
+                src="assets/car25.png" 
+                alt="Age of Vehicles Primitive Age Car 25" 
+                style="
+                  width:80%;
+                  border-radius: 8px;
+                  box-shadow: 0 1px 8px rgba(60,60,120,0.10);
+                  object-fit: cover;
+                  border: 2px solid #e0e7ff;
+                  opacity: 0.85;
+                  background: #fff;
+                  padding: 0;
+                "
+              >
+            </div>
+          </div>
+          <div class="age-image-group" style="display: flex; flex-direction: column; align-items: center;">
+            <span style="
+              display: block; 
+              margin-bottom: 0.5rem; 
+              font-size: 1.05rem; 
+              color: #3a86ff; 
+              font-weight: 500; 
+              letter-spacing: 0.5px; 
+              text-align: center; 
+              text-shadow: 0 2px 8px #e0e7ff;
+              font-family: 'Segoe UI', Arial, sans-serif;
+            ">
+              <b style="font-weight: 500; font-family: inherit; letter-spacing: 0.5px;">Metal Age</b>
+            </span>
+            <img 
+              src="assets/car2.png" 
+              alt="Age of Vehicles Game Concept" 
+              style="
+                width: 135%;
+                border-radius: 8px;
+                box-shadow: 0 1px 8px rgba(60,60,120,0.10);
+                object-fit: cover;
+                border: 2px solid #bdbdfc;
+                opacity: 0.85;
+              "
+            >
+          </div>
+        </div>
+    </section>
+
+    <section id="about" style="background: linear-gradient(100deg, #e0e7ff 60%, #bdbdfc 100%); border-radius: 18px; box-shadow: 0 6px 28px rgba(60,60,120,0.10); padding: 2.5rem 2rem 2rem 2rem; margin: 2.5rem 0; border-left: 8px solid #3a86ff;">
+      <h2 style="font-size:2.2rem; color:#8338ec; margin-bottom:1.2rem; letter-spacing:1px; text-shadow:0 2px 8px #e0e7ff;">About Me</h2>
+      <blockquote style="font-size:1.25rem; color:#3a86ff; font-style:italic; border-left:4px solid #8338ec; margin:0 0 1.5rem 0; padding-left:1.2rem; background:rgba(255,255,255,0.7); border-radius:8px;">
+        “Games are the most elevated form of investigation.”<br>
+        <span style="font-size:1rem; color:#4f4f6b;">— Albert Einstein</span>
+      </blockquote>
+      <p style="font-size:1.15rem; color:#22223b; line-height:1.8; margin-bottom:1.5rem;">
+        I am a <b>game developer</b> and <b>computer engineer</b> with a strong academic foundation and a passion for research-driven design. My work bridges <b>interactive systems</b>, <b>player psychology</b>, and <b>innovative mechanics</b>, aiming to create experiences that are both engaging and intellectually stimulating.<br><br>
+        My academic journey has included <b>research in human-computer interaction</b>, <b>VR/AR usability studies</b>, and the application of <b>cognitive science</b> principles to game design. I am fascinated by how <b>systemic thinking</b> and <b>data-driven iteration</b> can elevate gameplay and learning outcomes.
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:2.5rem; align-items:flex-start;">
+        <div style="flex:1 1 260px;">
+          <h3 style="color:#3a86ff; font-size:1.15rem; margin-bottom:0.7rem;">Academic Interests</h3>
+          <ul style="color:#44446b; font-size:1.05rem; line-height:1.7; margin:0 0 1.2rem 1.2rem;">
+            <li>Game design theory &amp; ludology</li>
+            <li>Procedural content generation</li>
+            <li>Player motivation &amp; engagement models</li>
+            <li>Human-computer interaction (HCI) in games</li>
+            <li>Virtual &amp; augmented reality research</li>
+            <li>Adaptive learning systems</li>
+          </ul>
+        </div>
+        <div style="flex:1 1 260px;">
+          <h3 style="color:#3a86ff; font-size:1.15rem; margin-bottom:0.7rem;">Technical Profile</h3>
+          <ul style="color:#44446b; font-size:1.05rem; line-height:1.7; margin:0 0 1.2rem 1.2rem;">
+            <li><b>Languages:</b> C#, Java, Python</li>
+            <li><b>Engines:</b> Unity (URP, HDRP)</li>
+            <li><b>Specialties:</b> Gameplay systems, event-driven architectures, design patterns (Singleton, Observer, State), ECS, VR/AR prototyping</li>
+            <li><b>Tools:</b> Git, Blender</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;">
+        <h3 style="color:#3a86ff; font-size:1.15rem; margin-bottom:0.7rem;">Research &amp; Collaboration</h3>
+        <p style="color:#22223b; font-size:1.05rem; line-height:1.7;">
+          I value <b>interdisciplinary teamwork</b> and enjoy collaborating with designers, artists, and researchers to explore new paradigms in gameplay and user experience. My approach combines <b>academic rigor</b> with <b>creative experimentation</b>, striving to contribute to both the scholarly and practical advancement of interactive media.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" style="background: linear-gradient(100deg, #e0e7ff 60%, #bdbdfc 100%); border-radius: 18px; box-shadow: 0 6px 28px rgba(60,60,120,0.10); padding: 2.5rem 2rem 2rem 2rem; margin: 2.5rem 0; border-left: 8px solid #8338ec;">
+      <h2 style="font-size:2.2rem; color:#3a86ff; margin-bottom:1.2rem; letter-spacing:1px; text-shadow:0 2px 8px #e0e7ff;">
+      Contact
+      </h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: flex-start;">
+      <div style="flex:1 1 260px; min-width:220px;"></div>
+        <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); padding: 1.5rem 1.2rem; margin-bottom: 1.2rem;">
+        <p style="font-size:1.15rem; color:#22223b; margin:0 0 0.7rem 0;">
+          <b>Email:</b> <a href="mailto:sezersezo37@gmail.com" style="color:#3a86ff; text-decoration:underline;">sezersezo37@gmail.com</a>
+        </p>
+        <p style="font-size:1.15rem; color:#22223b; margin:0;">
+          <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/cihansezerozkamer/" target="_blank" style="color:#8338ec; text-decoration:underline;">cihansezerozkamer</a>
+        </p>
+        </div>
+        <div style="margin-top:1.2rem; font-size:0.98rem; color:#4f4f6b;">
+        <span style="display:inline-block; background:#e0e7ff; color:#3a86ff; border-radius:6px; padding:0.3rem 0.8rem; font-weight:600;">
+          Let's connect!
+        </span>
+        </div>
+      </div>
+      <div style="flex:2 1 340px; min-width:260px;">
+        <div style="background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(60,60,120,0.10); padding: 1.5rem 1.2rem;">
+        <h3 style="color:#8338ec; font-size:1.18rem; margin-top:0; margin-bottom:0.7rem; letter-spacing:0.5px;">
+          🎲 Guess the Secret Number!
+        </h3>
+        <p style="color:#44446b; font-size:1.05rem; margin-bottom:1rem;">
+          Try your luck! Guess a number between <b>1</b> and <b>20</b>. Can you find the secret number in 5 tries or less?
+        </p>
+        <div id="guess-game" style="display:flex; flex-direction:column; gap:0.7rem;">
+          <input id="guess-input" type="number" min="1" max="20" placeholder="Enter your guess..." style="padding:0.6rem 1rem; border-radius:8px; border:1.5px solid #bdbdfc; font-size:1.1rem; outline:none; transition:border-color 0.2s;">
+          <button id="guess-btn" style="background:#3a86ff; color:#fff; border:none; padding:0.7rem 1.2rem; border-radius:8px; font-size:1rem; cursor:pointer; font-weight:600; box-shadow:0 2px 8px rgba(60,60,120,0.08); transition:background 0.2s;">
+          Guess
+          </button>
+          <div id="guess-message" style="min-height:1.5em; font-size:1.08rem; color:#3a86ff; font-weight:600;"></div>
+          <div id="guess-tries" style="font-size:0.98rem; color:#4f4f6b;"></div>
+          <button id="guess-restart" style="display:none; background:#8338ec; color:#fff; border:none; padding:0.5rem 1rem; border-radius:8px; font-size:0.98rem; cursor:pointer; font-weight:500; margin-top:0.5rem;">
+          Play Again
+          </button>
+        </div>
+        </div>
+      </div>
+      </div>
+      <script>
+      (function(){
+        const secret = Math.floor(Math.random() * 20) + 1;
+        let tries = 0, maxTries = 5, finished = false;
+        const input = document.getElementById('guess-input');
+        const btn = document.getElementById('guess-btn');
+        const msg = document.getElementById('guess-message');
+        const triesDiv = document.getElementById('guess-tries');
+        const restart = document.getElementById('guess-restart');
+        function updateTries() {
+        triesDiv.textContent = `Tries left: ${maxTries - tries}`;
+        }
+        function endGame(win) {
+        finished = true;
+        btn.disabled = true;
+        input.disabled = true;
+        restart.style.display = 'inline-block';
+        msg.style.color = win ? '#2ecc40' : '#e63946';
+        msg.textContent = win ? '🎉 Congratulations! You guessed it!' : `❌ Out of tries! The number was ${secret}.`;
+        }
+        btn.onclick = function() {
+        if (finished) return;
+        const val = parseInt(input.value, 10);
+        if (isNaN(val) || val < 1 || val > 20) {
+          msg.style.color = '#e63946';
+          msg.textContent = 'Please enter a valid number (1-20).';
+          return;
+        }
+        tries++;
+        if (val === secret) {
+          endGame(true);
+        } else if (tries >= maxTries) {
+          endGame(false);
+        } else {
+          msg.style.color = '#3a86ff';
+          msg.textContent = val < secret ? 'Too low! Try again.' : 'Too high! Try again.';
+          updateTries();
+        }
+        input.value = '';
+        input.focus();
+        };
+        restart.onclick = function() {
+        window.location.reload();
+        };
+        input.addEventListener('keydown', function(e){
+        if (e.key === 'Enter') btn.click();
+        });
+        updateTries();
+      })();
+      </script>
+    </section></div>
+  </div>
+  <script>
+    // Scroll effect for nav highlighting
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = Array.from(document.querySelectorAll('section'));
+    window.addEventListener('scroll', () => {
+      let scrollPos = window.scrollY + 120;
+      sections.forEach((section, idx) => {
+        if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          navLinks[idx].classList.add('active');
+        }
+      });
+    });
+
+    // Animate projects on scroll
+    const projects = document.querySelectorAll('.project');
+    const animateProjects = () => {
+      projects.forEach(proj => {
+        const rect = proj.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) {
+          proj.style.opacity = 1;
+          proj.style.transform = 'translateY(0)';
+        }
+      });
+    };
+    window.addEventListener('scroll', animateProjects);
+    window.addEventListener('DOMContentLoaded', animateProjects);
+  </script>
 </body>
 </html>
