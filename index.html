@@ -193,6 +193,26 @@
     .project a:hover {
       color: #8338ec;
     }
+    .certificate {
+      margin-top: 2.5rem;
+    }
+    .certificate a {
+      display: block;
+      max-width: 650px;
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+    .certificate a:focus-visible {
+      outline: 3px solid #8338ec;
+      outline-offset: 4px;
+    }
+    .certificate img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(60,60,120,0.08);
+    }
     /* Scrollbar styling */
     ::-webkit-scrollbar {
       width: 10px;
@@ -807,6 +827,12 @@
       })();
       </script>
     </section>
+    <footer class="certificate" aria-labelledby="certificate-title">
+      <h2 id="certificate-title">Certificate</h2>
+      <a href="https://verified.sertifier.com/tr/verify/04207182369004/" target="_blank" rel="noopener noreferrer">
+        <img src="https://verified-bucket.s3.eu-central-1.amazonaws.com/cert/04207182369004.png" alt="Cihan Sezer Özkamer's certificate — click to verify on Sertifier" loading="lazy" decoding="async">
+      </a>
+    </footer>
   </div>
   <script>
     // Scroll effect for nav highlighting
