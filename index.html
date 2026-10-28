@@ -2,865 +2,825 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Cihan Sezer Özkamer – Game Developer Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts: Roboto and Press Start 2P for fun/retro headings -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Cihan Sezer Özkamer – Software Engineer (C# · Unity · Python)</title>
+  <meta name="description" content="Cihan Sezer Özkamer – Computer engineer and C# / Python software developer based in Darmstadt. Unity mobile game with 100K+ downloads, VR prototypes, AI agents and production web work.">
+  <meta property="og:title" content="Cihan Sezer Özkamer – Software Engineer (C# · Unity · Python)">
+  <meta property="og:description" content="C# / Unity / Python developer · 100K+ download mobile game · Based in Darmstadt, Germany">
+  <meta property="og:image" content="assets/thumbs/bullet-game.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* Reset and base styles */
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef1f8;
+      --text: #141826;
+      --muted: #5b6275;
+      --border: #e2e6f0;
+      --accent: #f26b1d;
+      --accent-soft: #fff1e8;
+      --accent-2: #3a5bff;
+      --accent-2-soft: #eaeeff;
+      --ok: #16a34a;
+      --shadow: 0 1px 2px rgba(20,24,38,.04), 0 8px 24px rgba(20,24,38,.06);
+      --radius: 14px;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1017;
+        --surface: #151a24;
+        --surface-2: #1c2230;
+        --text: #e9ecf3;
+        --muted: #9aa3b5;
+        --border: #262d3d;
+        --accent: #ff8a3d;
+        --accent-soft: #2a1b12;
+        --accent-2: #7b93ff;
+        --accent-2-soft: #1a2142;
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
     body {
-      font-family: 'Roboto', Arial, sans-serif;
-      /* Game-inspired background: pixel grid, gradient, and subtle overlay */
-      background:
-        repeating-linear-gradient(135deg, #3a86ff22 0 2px, transparent 2px 40px),
-        repeating-linear-gradient(45deg, #8338ec22 0 2px, transparent 2px 40px),
-        linear-gradient(120deg, #0f1021 0%, #3a86ff 60%, #8338ec 100%);
       margin: 0;
-      padding: 0;
-      color: #22223b;
-      max-width: 100vw;
-      overflow-x: hidden;
-      position: relative;
-    }
-    /* Subtle pixel/arcade overlay effect */
-    body::before {
-      content: "";
-      pointer-events: none;
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      opacity: 0.13;
-      background-image:
-        url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="40" height="40" fill="none"/><rect x="0" y="0" width="4" height="4" fill="%238338ec"/><rect x="36" y="36" width="4" height="4" fill="%233a86ff"/></svg>');
-      background-repeat: repeat;
-      background-size: 40px 40px;
-      mix-blend-mode: lighten;
-    }
-    .container {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: rgba(255,255,255,0.95);
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(60,60,120,0.12);
-      position: relative;
-      z-index: 1;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      position: relative;
-    }
-    header h1 {
-      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 0.3rem;
-      background: linear-gradient(90deg, #3a86ff, #8338ec 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 2px 12px #3a86ff33, 0 4px 24px #8338ec22;
-    }
-    header p {
-      font-family: 'Roboto', Arial, sans-serif;
-      font-size: 1rem;
-      color: #4f4f6b;
-      margin-bottom: 0.7rem;
-      text-shadow: 0 1px 6px #3a86ff11;
-    }
-    .links {
-      margin-bottom: 1.2rem;
-    }
-    .links a {
-      color: #3a86ff;
-      font-weight: 500;
-      margin: 0 0.7rem;
-      text-decoration: none;
-      transition: color 0.2s;
-      border-bottom: 2px solid transparent;
-      font-family: 'Roboto', Arial, sans-serif;
-      font-size: 0.98rem;
-    }
-    .links a:hover {
-      color: #8338ec;
-      border-bottom: 2px solid #8338ec;
-    }
-    nav {
-      position: sticky;
-      top: 0;
-      background: rgba(255,255,255,0.95);
-      z-index: 10;
-      padding: 0.7rem 0;
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 2px 8px rgba(60,60,120,0.07);
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      animation: fadeInDown 1s;
-      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
-      font-size: 0.93rem;
-      letter-spacing: 0.5px;
-    }
-    nav a {
-      color: #22223b;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 0.3rem 0.8rem;
-      border-radius: 6px;
-      transition: background 0.2s, color 0.2s;
-      font-family: inherit;
-      font-size: 0.97em;
-    }
-    nav a:hover, nav a.active {
-      background: #e0e7ff;
-      color: #3a86ff;
-    }
-    h2 {
-      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
-      font-size: 1.5rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1.2rem;
-      color: #3a86ff;
-      border-left: 5px solid #8338ec;
-      padding-left: 0.7rem;
-      letter-spacing: 0.5px;
-      text-shadow: 0 2px 8px #3a86ff22;
-    }
-    .project {
-      background: linear-gradient(100deg, #f8fafc 60%, #e0e7ff 100%);
-      padding: 1.2rem 1rem;
-      margin-bottom: 2.2rem;
-      border-radius: 14px;
-      box-shadow: 0 4px 18px rgba(60,60,120,0.09);
-      transition: transform 0.3s, box-shadow 0.3s;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: fadeInUp 1s forwards;
-      animation-delay: var(--delay, 0s);
-      border: 2px solid #3a86ff22;
-      font-family: 'Roboto', Arial, sans-serif;
-      font-size: 0.98rem;
-    }
-    .project:hover {
-      transform: scale(1.025) translateY(-4px);
-      box-shadow: 0 8px 32px rgba(60,60,120,0.13), 0 0 0 2px #8338ec33;
-      border-color: #8338ec55;
-    }
-    .project h3 {
-      font-family: 'Press Start 2P', 'Roboto', Arial, sans-serif;
-      margin-top: 0;
-      color: #8338ec;
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 2px 8px #3a86ff22;
-      letter-spacing: 0.5px;
-    }
-    .project p {
-      margin: 0.5rem 0 1rem 0;
-      color: #44446b;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
-      font-family: 'Roboto', Arial, sans-serif;
-      font-size: 0.98rem;
+      -webkit-font-smoothing: antialiased;
     }
-    .project img {
-      width: 100%;
-      max-width: 650px;
-      border-radius: 10px;
-      margin: 1rem 0 0.5rem 0;
-      box-shadow: 0 2px 12px rgba(60,60,120,0.08);
-      transition: filter 0.3s;
-      filter: grayscale(10%) brightness(0.97);
-      border: 2px solid #3a86ff22;
+    a { color: var(--accent-2); }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+    /* Top bar */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
     }
-    .project img:hover {
-      filter: none;
-      border-color: #8338ec55;
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+    .brand { font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -.2px; white-space: nowrap; }
+    .brand span { color: var(--accent); }
+    .topnav { display: flex; gap: 4px; align-items: center; }
+    .topnav a { color: var(--muted); text-decoration: none; font-size: .92rem; font-weight: 500; padding: 6px 10px; border-radius: 8px; }
+    .topnav a:hover, .topnav a.active { color: var(--text); background: var(--surface-2); }
+    @media (max-width: 760px) { .topnav a:not(.btn) { display: none; } }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 10px;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      border: 1px solid var(--border); color: var(--text); background: var(--surface);
+      transition: transform .15s, box-shadow .15s, border-color .15s;
     }
-    .project a {
-      color: #3a86ff;
-      font-weight: 500;
-      text-decoration: underline;
-      transition: color 0.2s;
-      font-family: 'Roboto', Arial, sans-serif;
-      font-size: 0.97em;
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn.small { padding: 7px 12px; font-size: .88rem; }
+    .btn svg { width: 18px; height: 18px; flex: none; }
+
+    /* Hero */
+    .hero { padding-top: 64px; padding-bottom: 40px; }
+    .hero, .meta-line { overflow-wrap: anywhere; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .85rem; font-weight: 600; color: var(--ok);
+      background: color-mix(in srgb, var(--ok) 12%, transparent);
+      padding: 6px 12px; border-radius: 999px;
     }
-    .project a:hover {
-      color: #8338ec;
+    .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 25%, transparent); }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.1; margin: 18px 0 10px; letter-spacing: -1px; }
+    .hero .role { font-size: clamp(1.1rem, 2.4vw, 1.35rem); font-weight: 600; color: var(--accent); margin: 0 0 16px; }
+    .hero .pitch { font-size: 1.08rem; color: var(--muted); max-width: 680px; margin: 0 0 26px; }
+    .hero .pitch b { color: var(--text); font-weight: 600; }
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .meta-line { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 20px; color: var(--muted); font-size: .92rem; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+    .stat b { display: block; font-size: 1.6rem; letter-spacing: -.5px; }
+    .stat span { color: var(--muted); font-size: .88rem; }
+    @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+    /* Sections */
+    section { padding: 48px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 6px; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2rem); margin: 0; letter-spacing: -.5px; }
+
+    /* Filters */
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; }
+    .filters button {
+      font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer;
+      padding: 7px 14px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--surface); color: var(--muted);
     }
-    .certificate {
-      margin-top: 2.5rem;
+    .filters button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+    /* Project cards */
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow);
+      transition: transform .2s, opacity .3s;
     }
-    .certificate a {
-      display: block;
-      max-width: 650px;
-      margin: 0 auto;
-      border-radius: 10px;
+    .card.featured { grid-column: 1 / -1; }
+    @media (min-width: 821px) {
+      .card.featured { flex-direction: row; }
+      .card.featured .thumb { flex: 0 0 48%; aspect-ratio: auto; min-height: 100%; }
     }
-    .certificate a:focus-visible {
-      outline: 3px solid #8338ec;
-      outline-offset: 4px;
+    .card[hidden] { display: none; }
+    .thumb {
+      position: relative; aspect-ratio: 16 / 9; background: var(--surface-2);
+      cursor: zoom-in; border: 0; padding: 0; width: 100%; overflow: hidden;
     }
-    .certificate img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(60,60,120,0.08);
+    .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .thumb:hover img { transform: scale(1.03); }
+    .thumb.contain img { object-fit: contain; }
+    .thumb .count {
+      position: absolute; right: 10px; bottom: 10px;
+      background: rgba(0,0,0,.65); color: #fff; font-size: .78rem; font-weight: 600;
+      padding: 4px 9px; border-radius: 6px;
     }
-    /* Scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 10px;
-      background: #e0e7ff;
-      border-radius: 8px;
+    .thumb.placeholder {
+      display: grid; place-items: center; cursor: default;
+      background: linear-gradient(135deg, var(--accent-2-soft), var(--accent-soft));
+      font-family: 'JetBrains Mono', monospace; font-size: 2.4rem; color: var(--accent-2);
     }
-    ::-webkit-scrollbar-thumb {
-      background: #bdbdfc;
-      border-radius: 8px;
+    .body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 3px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+    .tag.ctx { background: var(--accent-2-soft); color: var(--accent-2); }
+    .card h3 { margin: 0; font-size: 1.25rem; letter-spacing: -.3px; }
+    .card .sub { margin: -4px 0 0; color: var(--muted); font-size: .9rem; }
+    .card p { margin: 0; }
+    .card ul { margin: 0; padding-left: 1.1rem; }
+    .card li { margin: 3px 0; }
+    .card li::marker { color: var(--accent); }
+    .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .chip { font-family: 'JetBrains Mono', monospace; font-size: .76rem; padding: 3px 8px; border-radius: 6px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+    .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 8px; }
+    details { border-top: 1px dashed var(--border); padding-top: 10px; }
+    summary { cursor: pointer; font-weight: 600; color: var(--accent-2); font-size: .92rem; }
+    details[open] summary { margin-bottom: 8px; }
+    details h4 { margin: 12px 0 4px; font-size: .95rem; }
+    .video { position: relative; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #000; }
+    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* Timeline */
+    .timeline { position: relative; display: grid; gap: 16px; }
+    .job {
+      display: grid; grid-template-columns: 180px 1fr; gap: 20px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px;
     }
-    /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px);}
-      to { opacity: 1; transform: translateY(0);}
+    @media (max-width: 680px) { .job { grid-template-columns: 1fr; gap: 6px; } }
+    .job .when { color: var(--muted); font-size: .9rem; font-weight: 500; }
+    .job .when b { display: block; color: var(--text); font-size: .95rem; }
+    .job h3 { margin: 0; font-size: 1.12rem; }
+    .job .org { color: var(--accent); font-weight: 600; }
+    .job ul { margin: 8px 0 0; padding-left: 1.1rem; }
+    .job li::marker { color: var(--accent); }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 820px) { .skills { grid-template-columns: 1fr; } }
+    .skill-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+    .skill-box h3 { margin: 0 0 4px; font-size: 1rem; }
+    .skill-box .lvl { color: var(--muted); font-size: .85rem; margin: 0 0 12px; }
+    .skill-box .stack .chip { font-size: .82rem; color: var(--text); }
+
+    /* Two-col */
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 820px) { .two { grid-template-columns: 1fr; } }
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+    .panel h3 { margin: 0 0 12px; font-size: 1.05rem; }
+    .item + .item { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .item b { display: block; }
+    .item span { color: var(--muted); font-size: .9rem; }
+    .lang { display: flex; justify-content: space-between; padding: 6px 0; }
+    .lang span { color: var(--muted); }
+
+    .about p { color: var(--muted); font-size: 1.04rem; margin: 0 0 12px; }
+    .about p b { color: var(--text); }
+
+    /* Contact */
+    .contact {
+      background: var(--text); color: var(--bg); border-radius: 20px; padding: 40px;
+      display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
     }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px);}
-      to { opacity: 1; transform: translateY(0);}
+    .contact h2 { color: var(--bg); }
+    .contact p { margin: 8px 0 0; opacity: .75; }
+    .contact .btn { background: transparent; color: var(--bg); border-color: color-mix(in srgb, var(--bg) 30%, transparent); }
+    .contact .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    @media (max-width: 600px) { .contact { padding: 28px 22px; } }
+
+    footer { padding: 32px 0 48px; color: var(--muted); font-size: .88rem; text-align: center; }
+
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(5,7,12,.92); display: none; align-items: center; justify-content: center; padding: 56px 16px; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-height: 100%; max-width: 100%; border-radius: 8px; object-fit: contain; }
+    .lightbox button { position: absolute; background: rgba(255,255,255,.12); color: #fff; border: 0; width: 44px; height: 44px; border-radius: 50%; font-size: 1.4rem; cursor: pointer; }
+    .lightbox .close { top: 12px; right: 12px; }
+    .lightbox .prev { left: 12px; top: 50%; transform: translateY(-50%); }
+    .lightbox .next { right: 12px; top: 50%; transform: translateY(-50%); }
+    .lightbox .caption { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; color: #cfd5e3; font-size: .9rem; }
+
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media print {
+      :root {
+        --bg: #ffffff; --surface: #ffffff; --surface-2: #f1f3f8; --text: #141826; --muted: #4b5263;
+        --border: #dde1ea; --accent: #e0601a; --accent-soft: #fff1e8; --accent-2: #3a5bff; --accent-2-soft: #eaeeff;
+        --shadow: none;
+      }
+      @page { margin: 12mm; }
+      html { font-size: 13px; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 12px; }
+      .section-head { break-after: avoid; }
+      .card .thumb { aspect-ratio: 16 / 5 !important; }
+      .topbar, .filters, .lightbox, details, .thumb .count, footer, #contact { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .card[hidden] { display: flex !important; }
+      .hero { padding-top: 0; padding-bottom: 16px; }
+      section { padding: 20px 0; }
+      .card, .job, .panel, .skill-box, .stat, .contact { break-inside: avoid; }
+      .wrap { padding: 0; max-width: none; }
+      .hero h1 { font-size: 2.2rem; margin-top: 10px; }
+      .hero .pitch { font-size: .98rem; margin-bottom: 14px; }
+      .stats { grid-template-columns: repeat(4, 1fr) !important; margin-top: 18px; }
+      .stat { padding: 10px 12px; }
+      .stat b { font-size: 1.25rem; }
+      .section-head { margin-bottom: 12px; }
+      h2 { font-size: 1.4rem; }
+      .grid { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+      .card.featured { flex-direction: row !important; }
+      .card.featured .thumb { flex: 0 0 34%; aspect-ratio: auto; }
+      .thumb { aspect-ratio: 16 / 7; }
+      .body { padding: 12px 14px 14px; gap: 6px; }
+      .card h3 { font-size: 1.02rem; }
+      .card .sub { font-size: .82rem; }
+      .card li { margin: 1px 0; }
+      .btn { padding: 5px 10px; font-size: .8rem; }
+      .chip { font-size: .7rem; padding: 2px 6px; }
+      .job { grid-template-columns: 150px 1fr !important; padding: 14px 16px; }
+      .timeline { gap: 10px; }
+      .skills { grid-template-columns: repeat(3, 1fr) !important; gap: 10px; }
+      .skill-box, .panel { padding: 14px 16px; }
+      .two { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+      .contact { padding: 22px 26px; }
+      .btn:hover { transform: none; }
     }
-    /* Responsive */
-    @media (max-width: 700px) {
-      .container { padding: 1rem; }
-      h2 { font-size: 1.1rem; }
-      header h1 { font-size: 1rem; }
-      .project img { max-width: 100%; }
-      nav { font-size: 0.75rem; }
-      .project, .project p { font-size: 0.93rem; }
-    }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#top">Cihan Sezer Özkamer<span>.</span></a>
+      <nav class="topnav">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+        <a class="btn small primary" href="Cihan_Sezer_Ozkamer_CV.pdf" target="_blank" rel="noopener">CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <div class="wrap hero">
+      <span class="badge">Based in Darmstadt · Open to software engineering roles in Germany</span>
       <h1>Cihan Sezer Özkamer</h1>
-      <p>Game Developer &mdash; BSc in Computer Engineering</p>
-      <div class="links">
-        <a href="https://github.com/cihansezerozkamer" target="_blank">GitHub</a>
-        <a href="assets/CV.pdf" target="_blank">Download CV</a>
-      </div>
-    </header>
-    <nav>
-      <a href="#projects" class="active">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <section id="projects">
-      <h2>Portfolio</h2>
-
-      <div class="project" style="--delay:0.1s">
-        <h3>Bullet Rush Clone Game</h3>
-        <p>
-          <strong>Mobile Game Demo:</strong> Developed to master mobile game development principles, focusing on hyper-casual design and optimization.
-        </p>
-        <ul>
-          <li>Utilized <b>Addressables</b> for efficient asset management.</li>
-          <li>Implemented <b>Scriptable Objects</b> and <b>Object Pooling</b> for performance.</li>
-          <li>Applied <b>Singleton</b> and <b>Cinematic</b> patterns.</li>
-          <li>Learned advanced optimization and production workflows.</li>
-        </ul>
-        <p>
-          <em>Special thanks to my mentor at No Surrender Studios for guidance.</em>
-        </p>
-        <img src="assets/bullet-game.png" alt="Mobile Game Screenshot">
-        <div style="margin: 1.2rem 0;"></div>
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/8B4dnCis_6c" title="Destroyer Bullet-Rush Clone Gameplay" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius:10px; box-shadow:0 2px 12px rgba(60,60,120,0.08);"></iframe>
-        <p><a href="https://github.com/cihansezerozkamer/internship-BulletRush" target="_blank">View on GitHub</a></p>
-      </div>
-
-<div class="project" style="--delay:0.1s">
-  <h3>2022 Mobile Rhythm Game Prototype</h3>
-  <p>
-    <strong>Academic Project – Master's in Digital Games Design:</strong> This prototype was developed as part of the graduate curriculum in the Digital Games Design program. The project explores the integration of rhythm-based mechanics with elements inspired by both Tetris and endless runner genres, aiming to investigate novel forms of player engagement on mobile platforms.
-  </p>
-  <ul>
-    <li>Designed and implemented unique block assets, emphasizing modularity and visual clarity for mobile interfaces.</li>
-    <li>Developed a collision system that requires players to rotate blocks by 90 degrees to align them with dynamically generated wall patterns, introducing a spatial reasoning challenge.</li>
-    <li>Combined rhythmic timing with continuous forward progression, blending cognitive and reflexive gameplay elements.</li>
-    <li>Focused on optimizing user interaction and feedback for touch-based controls.</li>
-    <li>Identified areas for further development, including enhanced rhythm synchronization, expanded level design, and improved user experience.</li>
-  </ul>
-  <p>
-    <em>This project demonstrates the application of game design theory and technical implementation within an academic context, with ongoing plans for refinement and expansion.</em>
-  </p>
-  <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; align-items: center; margin: 1.5rem 0;"></div>
-    <img src="./assets/Rhytris1.png" alt="Rhytris Screenshot 1" style="display:block; margin:auto; width: 55%; min-width: 260px; max-width: 420px; border-radius: 16px; border: 4px solid #3a86ff; box-shadow: 0 2px 16px rgba(60,60,120,0.13); object-fit: cover; background: #fff;">
-    <img src="./assets/Rhytris2.png" alt="Rhytris Screenshot 2" style="display:block; margin:auto; width: 55%; min-width: 260px; max-width: 420px; border-radius: 16px; border: 4px solid #8338ec; box-shadow: 0 2px 16px rgba(60,60,120,0.13); object-fit: cover; background: #fff;">
-    <img src="./assets/Rhytris3.png" alt="Rhytris Screenshot 3" style="display:block; margin:auto; width: 55%; min-width: 260px; max-width: 420px; border-radius: 16px; border: 4px solid #bdbdfc; box-shadow: 0 2px 16px rgba(60,60,120,0.13); object-fit: cover; background: #fff;">
-    <img src="./assets/Rhytris4.png" alt="Rhytris Screenshot 4" style="display:block; margin:auto; width: 55%; min-width: 260px; max-width: 420px; border-radius: 16px; border: 4px solid #3a86ff; box-shadow: 0 2px 16px rgba(60,60,120,0.13); object-fit: cover; background: #fff;">
-    <img src="./assets/Rhytris5.png" alt="Rhytris Screenshot 5" style="display:block; margin:auto; width: 55%; min-width: 260px; max-width: 420px; border-radius: 16px; border: 4px solid #8338ec; box-shadow: 0 2px 16px rgba(60,60,120,0.13); object-fit: cover; background: #fff;">
-    <img src="./assets/Rhytris6.png" alt="Rhytris Screenshot 6" style="display:block; margin:auto; width: 55%; min-width: 260px; max-width: 420px; border-radius: 16px; border: 4px solid #bdbdfc; box-shadow: 0 2px 16px rgba(60,60,120,0.13); object-fit: cover; background: #fff;">
-  </div>
-<div class="project" style="--delay:0.3s">
-  <h3>Say or Boom</h3>
-  <p>
-    <strong>Mobile Game Demo:</strong> This project was developed to gain practical experience with mobile game monetization strategies, including Ads and LevelPlay integration, and to complete the process of publishing a game on Google Play.
-  </p>
-  <ul>
-    <li>Utilized <b>Addressables</b> for efficient asset management.</li>
-    <li>Implemented <b>Scriptable Objects</b> and <b>Object Pooling</b> for performance.</li>
-    <li>Applied <b>Singleton</b> pattern for game state management.</li>
-    <li>Learned Unity Ads, LevelPlay, IronSource, and Google Ads integration for monetization.</li>
-    <li>To unlock locked levels and contents, players can watch Ads or make in-app purchases.</li>
-
-  </ul>
-  <div style="display: flex; gap: 1rem; margin: 1rem 0; justify-content: flex-start; flex-wrap: wrap;">
-    <div style="display: flex; flex-direction: column; align-items: center; width: 30%; min-width: 120px;">
-      <img src="assets/sayorboom.png" alt="Say or Boom Preview" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); object-fit: cover;">
-      <span style="margin-top: 0.5rem; font-size: 0.95rem; color: #4f4f6b;"><b>Gameplay Preview</b></span>
-    </div>
-    <div style="display: flex; flex-direction: column; align-items: center; width: 30%; min-width: 120px;">
-      <img src="assets/sayorboom2.png" alt="Say or Boom Preview" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); object-fit: cover;">
-      <span style="margin-top: 0.5rem; font-size: 0.95rem; color: #4f4f6b;"><b>List of Levels</b></span>
-    </div>
-    <div style="display: flex; flex-direction: column; align-items: center; width: 30%; min-width: 120px;">
-      <img src="assets/sayorboom3.png" alt="Say or Boom Preview" style="width: 100%; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); object-fit: cover;">
-      <span style="margin-top: 0.5rem; font-size: 0.95rem; color: #4f4f6b;"><b>Main Menu</b></span>
-    </div>
-  </div>
-
-  <!-- How to Play Section (collapsible) -->
-  <div style="margin: 1.5rem 0;"></div>
-  <button id="toggle-howtoplay" type="button" style="background:#3a86ff;color:#fff;border:none;padding:0.7rem 1.2rem;border-radius:8px;font-size:1rem;cursor:pointer;box-shadow:0 2px 8px rgba(60,60,120,0.08);display:flex;align-items:center;gap:0.5rem;">
-    <span id="howtoplay-arrow" style="transition:transform 0.2s;">&#9654;</span>
-    <span><b>How to Play</b></span>
-  </button>
-  <div id="howtoplay-content" style="display:none; padding: 1.2rem; background: #f8fafc; border-radius: 12px; box-shadow: 0 2px 12px rgba(60,60,120,0.06); margin-top:1rem;">
-    <h4 style="margin-top:0; color:#3a86ff;">🎮 Say or Boom – Game Instructions</h4>
-    <p><b>Type:</b> Face-to-face party game<br>
-    <b>Players:</b> 2 or more<br>
-    <b>Platform:</b> Mobile (pass-the-phone style)<br>
-    <b>Goal:</b> Avoid getting “boomed” by quickly answering before time runs out!</p>
-
-    <h5 style="margin-bottom:0.3rem;">🧠 Objective</h5>
-    <p style="margin-top:0;">Players must name examples based on a prompt (e.g., a category or location) before the <b>bomb timer</b> explodes. You must pass the phone before time runs out. The one holding it when it goes off loses the round.</p>
-
-    <h5 style="margin-bottom:0.3rem;">🕹️ How to Play</h5>
-    <ol style="margin-top:0;">
-      <li><b>Start the Game</b><br>
-        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
-          <li>Open the app and tap “Start”</li>
-          <li>A <b>random prompt/location</b> appears (e.g., “Things you see in a supermarket”)</li>
-        </ul>
-      </li>
-      <li><b>First Player Responds</b><br>
-        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
-          <li>Player 1 reads the prompt aloud and <b>says a valid answer</b></li>
-          <li>After answering, <b>pass the phone to the next player</b></li>
-        </ul>
-      </li>
-      <li><b>Next Player Answers</b><br>
-        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
-          <li>Player 2 sees the same prompt</li>
-          <li>Must give a different correct answer <b>quickly</b></li>
-          <li>Then <b>pass the phone again</b></li>
-        </ul>
-      </li>
-      <li><b>Tick-Tock... Boom!</b><br>
-        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
-          <li>The timer is ticking secretly in the background</li>
-          <li>The player holding the phone when it explodes (sound/vibration) <b>loses the round</b></li>
-        </ul>
-      </li>
-      <li><b>Repeat &amp; Score</b><br>
-        <ul style="margin:0.2rem 0 0.7rem 1.2rem; padding-left:0;">
-          <li>You can track points manually or just play for fun</li>
-          <li>First to lose 3 times? Do a dare, take a penalty, or just laugh it off!</li>
-        </ul>
-      </li>
-    </ol>
-
-    <h5 style="margin-bottom:0.3rem;">🎯 Game Highlights</h5>
-    <ul style="margin-top:0;">
-      <li>Designed for <b>live interaction</b> — no texting, no solo play</li>
-      <li>Encourages <b>quick thinking, verbal creativity</b>, and <b>social bonding</b></li>
-      <li>Great for parties, classrooms, or family time</li>
-      <li>Aims to reduce screen addiction by promoting <b>active face-to-face gameplay</b></li>
-    </ul>
-  </div>
-  <p><a href="https://github.com/cihansezerozkamer/Say-or-Boom" target="_blank">View on GitHub</a></p>
-</div>
-<script>
-  // Collapsible How to Play section
-  document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('toggle-howtoplay');
-    const content = document.getElementById('howtoplay-content');
-    const arrow = document.getElementById('howtoplay-arrow');
-    btn.addEventListener('click', function() {
-      if (content.style.display === 'none' || content.style.display === '') {
-        content.style.display = 'block';
-        arrow.style.transform = 'rotate(90deg)';
-      } else {
-        content.style.display = 'none';
-        arrow.style.transform = 'rotate(0deg)';
-      }
-    });
-  });
-</script>
-
-      <div class="project" style="--delay:0.6s">
-        <h3>
-          <span style="color:#3a86ff;">2023 Fundamental Game Design Lecture Project</span>
-        </h3>
-        <h4 style="margin-top:0.2rem; color:#3a86ff; font-size:1.05rem; font-weight:500;">
-          Split-Screen Local Beach Volleyball
-        </h4>
-        <ul style="list-style: disc; margin:0 0 1rem 1.2rem; color:#44446b; font-size:1rem; line-height:1.7;">
-          <li>
-        Developed as part of the 
-        <span style="color:#3a86ff; font-weight:600;">Computer Engineering</span> curriculum 
-        (<span style="color:#3a86ff; font-weight:600;">Fundamental Game Design</span> lecture).
-          </li>
-          <li>
-        Focused on animation pipeline: 
-        <span style="color:#0f0f0f; font-weight:600;">FBX import</span>, 
-        <span style="color:#000000; font-weight:600;">retargeting</span>, 
-        <span style="color:#000000; font-weight:600;">animation controllers</span>, 
-        and <span style="color:#020202; font-weight:600;">smooth transitions</span> in 
-        <span style="color:#000000; font-weight:600;">Unity URP</span>.
-          </li>
-          <li>
-        Used <span style="color:#000000; font-weight:600;">low-poly assets</span> for performance and clarity.
-          </li>
-          <li>
-        Designed for <span style="color:#000000; font-weight:600;">split-screen</span>, 
-        <span style="color:#000000; font-weight:600;">two-player local multiplayer</span> on a single computer.
-          </li>
-        </ul>
-        <img src="assets/Beachvolley.png" alt="Beach Volleyball Screenshot" style="width: 100%; max-width: 650px; border-radius: 10px; box-shadow: 0 2px 12px rgba(60,60,120,0.08);">
-        <p style="margin-top:0.5rem; color:#4f4f6b; font-size:1rem;">
-          <span style="color:#3a86ff; font-weight:600;">Game Preview</span>
-        </p>
-      </div>
-
-<div class="project" style="--delay:0.8s">
-        <h3>TANK2023 – 3D Version of Atari's TANK1991</h3>
-        <ul>
-          <li><b>Project Overview:</b>
-        <ul>
-          <li>A modern 3D reimagining of the classic Atari TANK1991, where players defend an eagle base from AI-controlled enemy tanks.</li>
-          <li>Developed as a final project during the Techcareer Game Developer Bootcamp, resulting in a Junior Game Developer Certificate.</li>
-        </ul>
-          </li>
-          <li><b>Technical Highlights:</b>
-        <ul>
-          <li>Built in Unity with full NavMesh-based AI navigation for intelligent enemy pathfinding and behavior.</li>
-          <li>Modular level design using Prefab Variants for scalable and reusable assets.</li>
-          <li>Core gameplay: shooting, health tracking, enemy spawning, and win/lose states, all managed in a single, complete scene.</li>
-        </ul>
-          </li>
-          <li><b>Gameplay and Design:</b>
-        <ul>
-          <li>Square map layout with structured enemy waves and strategic player positioning.</li>
-          <li>Balanced arcade-style action with AI-driven challenge to modernize the retro experience.</li>
-        </ul>
-          </li>
-          <li><b>Educational Contribution:</b>
-        <ul>
-          <li>Demonstrated proficiency in game architecture, AI programming, and Unity scene management under real bootcamp evaluation.</li>
-          <li>Validated technical skills and production workflow under industry-simulated deadlines and review.</li>
-        </ul>
-          </li>
-          <li><b>Scholarly Relevance:</b>
-        <ul>
-          <li>Explores transforming legacy 2D arcade mechanics into a modern 3D gameplay framework.</li>
-          <li>Contributes to AI-driven game design, player-environment interaction, and the educational value of reinterpreting classic games with contemporary tools.</li>
-        </ul>
-          </li>
-        </ul>
-<div style="display: flex; flex-direction: column; align-items: center; margin: 1.2rem auto 1.8rem auto;">
-          <span style="
-            display: block;
-            font-size: 1.12rem;
-            color: #3a86ff;
-            font-weight: 700;
-            letter-spacing: 0.7px;
-            margin-bottom: 0.7rem;
-            text-align: center;
-            text-shadow: 0 2px 8px #e0e7ff;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            border-bottom: 2px solid #bdbdfc;
-            padding-bottom: 0.3rem;
-            width: fit-content;
-          ">
-            <span style="font-size:1.25rem; color:#8338ec; vertical-align:middle;">🎮</span> Gameplay Scene
-          </span>
-          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; align-items: flex-start; width: 100%;">
-            <div style="display: flex; flex-direction: column; align-items: center;">
-              <img src="assets/tank.png" alt="TANK2023 Gameplay Screenshot"
-                style="
-                  width: 320px;
-                  max-width: 95vw;
-                  aspect-ratio: 4/3;
-                  border-radius: 16px;
-                  border: 3px solid #3a86ff;
-                  box-shadow: 0 4px 18px rgba(60,60,120,0.13);
-                  object-fit: cover;
-                  margin-bottom: 0.5rem;
-                  background: #f8fafc;
-                  transition: box-shadow 0.2s, border-color 0.2s;
-                ">
-              <span style="font-size: 0.98rem; color: #4f4f6b; font-weight: 500; margin-top: 0.2rem; letter-spacing: 0.2px;">
-                <span style="color:#3a86ff;">Main Gameplay</span>
-              </span>
-            </div>
-            <div style="display: flex; flex-direction: column; align-items: center;">
-              <img src="assets/tank2.png" alt="TANK2023 Enemy AI Screenshot"
-                style="
-                  width: 320px;
-                  max-width: 95vw;
-                  aspect-ratio: 4/3;
-                  border-radius: 16px;
-                  border: 3px solid #8338ec;
-                  box-shadow: 0 4px 18px rgba(60,60,120,0.13);
-                  object-fit: cover;
-                  margin-bottom: 0.5rem;
-                  background: #f8fafc;
-                  transition: box-shadow 0.2s, border-color 0.2s;
-                ">
-              <span style="font-size: 0.98rem; color: #4f4f6b; font-weight: 500; margin-top: 0.2rem; letter-spacing: 0.2px;">
-                <span style="color:#8338ec;">Eagle Action</span>
-              </span>
-            </div>
-          </div>
-        </div>
-</div>
-<div class="project" style="--delay:0.8s">
-        <h3>VR Interaction Demos</h3>
-        <ul>
-          <li><b>Immersive Prototyping:</b>
-        <ul>
-          <li>Explored advanced VR interaction design using Unity and OpenXR.</li>
-          <li>Integrated the Pico 4 headset to capture real-world user input.</li>
-        </ul>
-          </li>
-          <li><b>Spatial Navigation:</b>
-        <ul>
-          <li>Developed experimental scenes that implement natural locomotion systems, including both direct movement and teleportation.</li>
-          <li>Incorporated climbing mechanics to simulate realistic vertical movement within the virtual space.</li>
-        </ul>
-          </li>
-          <li><b>Interaction Mechanics:</b>
-        <ul>
-          <li>Designed and tested object manipulation features such as grabbable items and snap zones.</li>
-          <li>Implemented gesture-based controls to enhance intuitive interaction and responsiveness.</li>
-        </ul>
-          </li>
-          <li><b>User Feedback Systems:</b>
-        <ul>
-          <li>Focused on delivering immediate, responsive feedback to user actions for improved immersion.</li>
-          <li>Emphasized hand presence and ergonomic comfort to support extended VR usage.</li>
-        </ul>
-          </li>
-          <li><b>Academic and Practical Relevance:</b>
-        <ul>
-          <li>These demos represent a systematic exploration of VR interaction paradigms aimed at creating more natural and immersive virtual environments.</li>
-          <li>The work contributes to both the practical development of VR experiences and academic understanding of user-centered design in virtual reality.</li>
-        </ul>
-          </li>
-        </ul>
-        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.2rem auto; justify-content: center; align-items: center;"></div>
-          <img src="assets/VR.png" alt="VR Demo Screenshot" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
-          <img src="assets/VR2.png" alt="VR Demo Screenshot 2" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
-          <img src="assets/VR3.png" alt="VR Demo Screenshot 3" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
-          <img src="assets/VR4.png" alt="VR Demo Screenshot 4" style="width: 48%; min-width: 220px; max-width: 350px; aspect-ratio: 4/3; height: auto; border-radius: 14px; border: 3px solid #3a86ff; box-shadow: 0 2px 12px rgba(60,60,120,0.10); object-fit: fill;">
-        </div>
-
-<div class="project" style="--delay:1s">
-        <h3>2021-2022 Game Design Lecture Project</h3>
-        <h4 style="margin-top:0.2rem; color:#3a86ff; font-size:1.05rem; font-weight:500;">
-          Age of Vehicles
-        </h4>
-        <p>
-          <strong>Age of Vehicles Endless Runner Driving Game:</strong> This project originated from my longstanding interest in designing games that reflect technological progression. "Age of Vehicles" is a top-down <b>endless runner</b> driving game where players advance through distinct historical eras, each characterized by unique vehicles and collectible items. The gameplay begins in the primitive age, where players operate a wooden car to gather fruits. As the game progresses, players unlock new ages—such as the Primitive Age, featuring 1990s-style vehicles—and ultimately reach the Space Age, each with its own thematic collectibles and challenges.
-        </p>
-        <ul>
-          <li>
-            Developed as part of the <span style="color:#3a86ff; font-weight:600;">Game Design</span> curriculum, focusing on the integration of historical context into gameplay mechanics.
-          </li>
-          <li>
-            Implemented advanced <b>wheel physics</b> in Unity, overcoming significant technical challenges to achieve realistic vehicle behavior across different eras.
-          </li>
-          <li>
-            Designed and integrated a robust <b>data backup and save system</b> to ensure persistent player progress and seamless transitions between game stages.
-          </li>
-          <li>
-            Explored procedural content generation to enhance replayability and provide a dynamic player experience.
-          </li>
-        </ul>
-        <div class="age-of-vehicles-gallery" style="display: flex; flex-direction: column; align-items: center; gap: 1.2rem;">
-          <div class="age-image-group" style="display: flex; flex-direction: column; align-items: center;">
-            <span style="
-              display: block; 
-              margin-bottom: 0.5rem; 
-              font-size: 1.05rem; 
-              color: #3a86ff; 
-              font-weight: 800; 
-              letter-spacing: 0.5px; 
-              text-align: center; 
-              text-shadow: 0 2px 8px #e0e7ff;
-              font-family: 'Segoe UI', Arial, sans-serif;
-            ">
-              <b style="font-weight: 500; font-family: inherit; letter-spacing: 0.5px;">Primitive Age</b>
-            </span>
-            <div style="display: flex; gap: 10px; align-items: center; justify-content: center;"></div>
-              <img 
-                src="assets/car1.png" 
-                alt="Age of Vehicles Primitive Age Car 1" 
-                style="
-                  width: 80%;
-                  border-radius: 8px;
-                  box-shadow: 0 1px 8px rgba(60,60,120,0.10);
-                  object-fit: cover;
-                  border: 2px solid #e0e7ff;
-                  opacity: 0.85;
-                  background: #fff;
-                  padding: 0;
-                "
-              >
-              <div style="width:10px;"></div>
-              <img 
-                src="assets/car12.png" 
-                alt="Age of Vehicles Primitive Age Car 12" 
-                style="
-                  width: 80%;
-                  border-radius: 8px;
-                  box-shadow: 0 1px 8px rgba(60,60,120,0.10);
-                  object-fit: cover;
-                  border: 2px solid #e0e7ff;
-                  opacity: 0.85;
-                  background: #fff;
-                  padding: 0;
-                "
-              >
-              <div style="width:10px;"></div>
-              <img 
-                src="assets/car25.png" 
-                alt="Age of Vehicles Primitive Age Car 25" 
-                style="
-                  width:80%;
-                  border-radius: 8px;
-                  box-shadow: 0 1px 8px rgba(60,60,120,0.10);
-                  object-fit: cover;
-                  border: 2px solid #e0e7ff;
-                  opacity: 0.85;
-                  background: #fff;
-                  padding: 0;
-                "
-              >
-            </div>
-          </div>
-          <div class="age-image-group" style="display: flex; flex-direction: column; align-items: center;">
-            <span style="
-              display: block; 
-              margin-bottom: 0.5rem; 
-              font-size: 1.05rem; 
-              color: #3a86ff; 
-              font-weight: 500; 
-              letter-spacing: 0.5px; 
-              text-align: center; 
-              text-shadow: 0 2px 8px #e0e7ff;
-              font-family: 'Segoe UI', Arial, sans-serif;
-            ">
-              <b style="font-weight: 500; font-family: inherit; letter-spacing: 0.5px;">Metal Age</b>
-            </span>
-            <img 
-              src="assets/car2.png" 
-              alt="Age of Vehicles Game Concept" 
-              style="
-                width: 135%;
-                border-radius: 8px;
-                box-shadow: 0 1px 8px rgba(60,60,120,0.10);
-                object-fit: cover;
-                border: 2px solid #bdbdfc;
-                opacity: 0.85;
-              "
-            >
-          </div>
-        </div>
-    </section>
-
-    <section id="about" style="background: linear-gradient(100deg, #e0e7ff 60%, #bdbdfc 100%); border-radius: 18px; box-shadow: 0 6px 28px rgba(60,60,120,0.10); padding: 2.5rem 2rem 2rem 2rem; margin: 2.5rem 0; border-left: 8px solid #3a86ff;">
-      <h2 style="font-size:2.2rem; color:#8338ec; margin-bottom:1.2rem; letter-spacing:1px; text-shadow:0 2px 8px #e0e7ff;">About Me</h2>
-      <blockquote style="font-size:1.25rem; color:#3a86ff; font-style:italic; border-left:4px solid #8338ec; margin:0 0 1.5rem 0; padding-left:1.2rem; background:rgba(255,255,255,0.7); border-radius:8px;">
-        “Games are the most elevated form of investigation.”<br>
-        <span style="font-size:1rem; color:#4f4f6b;">— Albert Einstein</span>
-      </blockquote>
-      <p style="font-size:1.15rem; color:#22223b; line-height:1.8; margin-bottom:1.5rem;">
-        I am a <b>game developer</b> and <b>computer engineer</b> with a strong academic foundation and a passion for research-driven design. My work bridges <b>interactive systems</b>, <b>player psychology</b>, and <b>innovative mechanics</b>, aiming to create experiences that are both engaging and intellectually stimulating.<br><br>
-        My academic journey has included <b>research in human-computer interaction</b>, <b>VR/AR usability studies</b>, and the application of <b>cognitive science</b> principles to game design. I am fascinated by how <b>systemic thinking</b> and <b>data-driven iteration</b> can elevate gameplay and learning outcomes.
+      <p class="role">Software Engineer · C# · Unity · Python</p>
+      <p class="pitch">
+        Computer engineer with hands-on <b>C# software development</b> experience, including a
+        <b>Unity mobile game that reached 100,000+ downloads</b>. I work with <b>OOP, SOLID, design patterns,
+        debugging and performance optimisation</b>, and build Python tools and <b>LLM-based agents</b>.
+        Interested in applying software engineering to <b>complex technical systems</b>. Starting an
+        <b>M.Sc. Computer Engineering at Universität Duisburg-Essen</b>.
       </p>
-      <div style="display:flex; flex-wrap:wrap; gap:2.5rem; align-items:flex-start;">
-        <div style="flex:1 1 260px;">
-          <h3 style="color:#3a86ff; font-size:1.15rem; margin-bottom:0.7rem;">Academic Interests</h3>
-          <ul style="color:#44446b; font-size:1.05rem; line-height:1.7; margin:0 0 1.2rem 1.2rem;">
-            <li>Game design theory &amp; ludology</li>
-            <li>Procedural content generation</li>
-            <li>Player motivation &amp; engagement models</li>
-            <li>Human-computer interaction (HCI) in games</li>
-            <li>Virtual &amp; augmented reality research</li>
-            <li>Adaptive learning systems</li>
-          </ul>
-        </div>
-        <div style="flex:1 1 260px;">
-          <h3 style="color:#3a86ff; font-size:1.15rem; margin-bottom:0.7rem;">Technical Profile</h3>
-          <ul style="color:#44446b; font-size:1.05rem; line-height:1.7; margin:0 0 1.2rem 1.2rem;">
-            <li><b>Languages:</b> C#, Java, Python</li>
-            <li><b>Engines:</b> Unity (URP, HDRP)</li>
-            <li><b>Specialties:</b> Gameplay systems, event-driven architectures, design patterns (Singleton, Observer, State), ECS, VR/AR prototyping</li>
-            <li><b>Tools:</b> Git, Blender</li>
-          </ul>
-        </div>
+      <div class="cta">
+        <a class="btn primary" href="Cihan_Sezer_Ozkamer_CV.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+          Download CV
+        </a>
+        <a class="btn" href="#projects">View projects</a>
+        <a class="btn" href="https://www.linkedin.com/in/cihansezerozkamer/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.1 1.43-2.1 2.9V21H9z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="https://github.com/cihansezerozkamer" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          GitHub
+        </a>
       </div>
-      <div style="margin-top:1.5rem;">
-        <h3 style="color:#3a86ff; font-size:1.15rem; margin-bottom:0.7rem;">Research &amp; Collaboration</h3>
-        <p style="color:#22223b; font-size:1.05rem; line-height:1.7;">
-          I value <b>interdisciplinary teamwork</b> and enjoy collaborating with designers, artists, and researchers to explore new paradigms in gameplay and user experience. My approach combines <b>academic rigor</b> with <b>creative experimentation</b>, striving to contribute to both the scholarly and practical advancement of interactive media.
-        </p>
+      <div class="meta-line">
+        <span>📍 Darmstadt, Germany</span>
+        <span>🎓 BSc Computer Engineering · M.Sc. (UDE) in progress</span>
+        <span>🗣️ English C1 · German A1 · Turkish native</span>
+        <span>✉️ <a href="mailto:sezersezo37@gmail.com">sezersezo37@gmail.com</a></span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>100K+</b><span>Downloads on my internship mobile game</span></div>
+        <div class="stat"><b>2</b><span>Internships (Türkiye &amp; Germany)</span></div>
+        <div class="stat"><b>10+</b><span>Software &amp; game projects</span></div>
+        <div class="stat"><b>C1</b><span>English · German in progress</span></div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Selected work</p>
+            <h2>Projects</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filter projects">
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="mobile" aria-pressed="false">Mobile</button>
+            <button type="button" data-filter="vr" aria-pressed="false">VR</button>
+            <button type="button" data-filter="pc" aria-pressed="false">PC</button>
+            <button type="button" data-filter="web" aria-pressed="false">Software &amp; Web</button>
+          </div>
+        </div>
+
+        <div class="grid">
+
+          <!-- Bullet Rush -->
+          <article class="card featured reveal" data-cat="mobile">
+            <button class="thumb" type="button" data-gallery="assets/thumbs/bullet-game.jpg" data-title="Bullet Rush">
+              <img src="assets/thumbs/bullet-game.jpg" alt="Bullet Rush mobile game screenshot" loading="lazy">
+            </button>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Internship · No Surrender Studios</span><span class="tag">Mobile</span><span class="tag">2022</span><span class="tag">100K+ downloads</span></div>
+              <h3>Bullet Rush – Mobile Survivor Game</h3>
+              <p class="sub">Game Developer Intern · Built under the mentorship of a professional studio</p>
+              <p>A 3D hyper-casual survivor game for Android, designed and developed during my internship – <b>reached over 100,000 downloads</b>.</p>
+              <ul>
+                <li>Used <b>object pooling</b> for bullets and enemies to keep performance smooth on mobile.</li>
+                <li>Managed assets with <b>Addressables</b> and made gameplay data-driven with <b>ScriptableObjects</b>.</li>
+                <li>Built core systems such as knockback mechanics using <b>Zenject</b> dependency injection, <b>Observer</b> and <b>Singleton</b> patterns.</li>
+                <li>Debugged and optimised C# scripts to reduce load times; deployed and validated the Android release.</li>
+              </ul>
+              <div class="stack"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">Addressables</span><span class="chip">Zenject</span><span class="chip">Android</span></div>
+              <details>
+                <summary>Watch gameplay video</summary>
+                <div class="video"><iframe loading="lazy" src="https://www.youtube.com/embed/8B4dnCis_6c" title="Bullet Rush gameplay" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+              </details>
+              <div class="links">
+                <a class="btn small primary" href="https://www.youtube.com/watch?v=8B4dnCis_6c" target="_blank" rel="noopener">▶ Gameplay</a>
+                <a class="btn small" href="https://github.com/cihansezerozkamer/internship-BulletRush" target="_blank" rel="noopener">Source code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- IST Kesintisiz Guc -->
+          <article class="card reveal" data-cat="web">
+            <div class="thumb placeholder" aria-hidden="true">&lt;/web&gt;</div>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Freelance · Client project</span><span class="tag">Web</span><span class="tag">2026</span></div>
+              <h3>İST Kesintisiz Güç – Corporate Website</h3>
+              <p class="sub">Sole developer · Design, development, SEO &amp; deployment</p>
+              <p>Live product &amp; service website for an Istanbul-based UPS (uninterruptible power supply) company, on a custom domain.</p>
+              <ul>
+                <li>Data-driven architecture: all products, services and contact info come from <b>one data file</b>, so the client can update content without touching HTML.</li>
+                <li>Technical SEO: per-page meta &amp; canonical tags, Open Graph, <b>JSON-LD</b> (LocalBusiness, Product, Service), sitemap and 8 static product pages.</li>
+                <li>Python (PyMuPDF) build script that turns product brochures into responsive page previews; automated SEO checks.</li>
+              </ul>
+              <div class="stack"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">SEO</span><span class="chip">GitHub Pages</span></div>
+              <div class="links">
+                <a class="btn small primary" href="https://xn--istkesintisizg-tjb94a.com/" target="_blank" rel="noopener">Live site ↗</a>
+                <a class="btn small" href="https://github.com/cihansezerozkamer/Company-website-development" target="_blank" rel="noopener">Source code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- VR -->
+          <article class="card reveal" data-cat="vr">
+            <button class="thumb" type="button" data-gallery="assets/thumbs/VR.jpg,assets/thumbs/VR2.jpg,assets/thumbs/VR3.jpg,assets/thumbs/VR4.jpg" data-title="VR Interaction Demos">
+              <img src="assets/thumbs/VR.jpg" alt="VR interaction demo screenshot" loading="lazy">
+              <span class="count">4 images</span>
+            </button>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Personal R&amp;D</span><span class="tag">VR</span></div>
+              <h3>VR Interaction Demos</h3>
+              <p class="sub">Solo developer · Tested live on a Pico 4 headset</p>
+              <p>A set of VR scenes exploring core interaction and locomotion systems used in modern VR games.</p>
+              <ul>
+                <li>Locomotion: continuous movement, <b>teleportation</b> and <b>climbing</b>.</li>
+                <li>Interaction: grabbable objects, snap zones and hand-presence feedback.</li>
+                <li>Iterated with live headset testing for comfort and responsiveness.</li>
+              </ul>
+              <div class="stack"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">OpenXR</span><span class="chip">Pico 4</span></div>
+              <div class="links">
+                <a class="btn small" href="https://github.com/cihansezerozkamer/PicoVR-TUTORIAL" target="_blank" rel="noopener">Source code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Say or Boom -->
+          <article class="card reveal" data-cat="mobile">
+            <button class="thumb contain" type="button" data-gallery="assets/thumbs/sayorboom.jpg,assets/thumbs/sayorboom2.jpg,assets/thumbs/sayorboom3.jpg" data-title="Say or Boom">
+              <img src="assets/thumbs/sayorboom.jpg" alt="Say or Boom gameplay screen" loading="lazy">
+              <span class="count">3 images</span>
+            </button>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Personal project</span><span class="tag">Mobile</span></div>
+              <h3>Say or Boom – Party Game</h3>
+              <p class="sub">Solo developer · Game design, programming, monetization</p>
+              <p>A pass-the-phone party game: answer the prompt and pass the phone before the hidden bomb timer explodes.</p>
+              <ul>
+                <li>Implemented a full <b>monetization</b> loop: rewarded ads and in-app purchases to unlock levels.</li>
+                <li>Integrated <b>Unity Ads, LevelPlay / ironSource</b> and Google Ads.</li>
+                <li>Went through the Google Play publishing process end to end.</li>
+              </ul>
+              <div class="stack"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">LevelPlay</span><span class="chip">IAP</span><span class="chip">Addressables</span></div>
+              <details>
+                <summary>How the game works</summary>
+                <p><b>Players:</b> 2+ · <b>Platform:</b> one phone, passed around.</p>
+                <ol>
+                  <li>A random prompt appears (e.g. “Things you see in a supermarket”).</li>
+                  <li>Each player says a new valid answer and passes the phone.</li>
+                  <li>A secret timer runs; whoever holds the phone when it goes “boom” loses the round.</li>
+                </ol>
+                <p>Designed for face-to-face play: quick thinking, verbal creativity and less solo screen time.</p>
+              </details>
+            </div>
+          </article>
+
+          <!-- TANK2023 -->
+          <article class="card reveal" data-cat="pc">
+            <button class="thumb" type="button" data-gallery="assets/thumbs/tank.jpg,assets/thumbs/tank2.jpg" data-title="TANK2023">
+              <img src="assets/thumbs/tank.jpg" alt="TANK2023 gameplay screenshot" loading="lazy">
+              <span class="count">2 images</span>
+            </button>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Techcareer Bootcamp · Final project</span><span class="tag">PC</span><span class="tag">2023</span></div>
+              <h3>TANK2023 – 3D Tank Defense</h3>
+              <p class="sub">Solo developer · Earned the Junior Game Developer certificate</p>
+              <p>A 3D remake of the classic arcade tank genre: defend your base from waves of AI-controlled enemy tanks.</p>
+              <ul>
+                <li>Enemy AI with <b>NavMesh</b> pathfinding and targeting.</li>
+                <li>Reusable level pieces with <b>Prefab Variants</b>; enemy spawning, health and win/lose states.</li>
+                <li>Delivered under bootcamp deadlines and code review.</li>
+              </ul>
+              <div class="stack"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">NavMesh AI</span></div>
+              <div class="links">
+                <a class="btn small" href="https://github.com/cihansezerozkamer/TANK2023" target="_blank" rel="noopener">Source code</a>
+                <a class="btn small" href="https://verified.sertifier.com/tr/verify/04207182369004/" target="_blank" rel="noopener">Certificate ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Rhytris -->
+          <article class="card reveal" data-cat="mobile">
+            <button class="thumb" type="button" data-gallery="assets/thumbs/Rhytris1.jpg,assets/thumbs/Rhytris2.jpg,assets/thumbs/Rhytris3.jpg,assets/thumbs/Rhytris4.jpg,assets/thumbs/Rhytris5.jpg,assets/thumbs/Rhytris6.jpg" data-title="Rhytris">
+              <img src="assets/thumbs/Rhytris1.jpg" alt="Rhytris rhythm game screenshot" loading="lazy">
+              <span class="count">6 images</span>
+            </button>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Academic project</span><span class="tag">Mobile</span><span class="tag">2022</span></div>
+              <h3>Rhytris – Rhythm Puzzle Runner</h3>
+              <p class="sub">Game designer &amp; developer · Prototype</p>
+              <p>A mobile prototype that blends rhythm timing, Tetris-style block rotation and endless-runner movement.</p>
+              <ul>
+                <li>Core mechanic: rotate blocks 90° in time with the music to fit through generated wall patterns.</li>
+                <li>Designed modular block assets and clear touch feedback for small screens.</li>
+              </ul>
+              <div class="stack"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">Game design</span></div>
+            </div>
+          </article>
+
+          <!-- Pegasus -->
+          <article class="card reveal" data-cat="web">
+            <div class="thumb placeholder" aria-hidden="true">3 · 4</div>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Personal tool</span><span class="tag">Desktop</span><span class="tag">2026</span></div>
+              <h3>Multitasking &amp; Reflex Simulator</h3>
+              <p class="sub">Solo developer · Python desktop app</p>
+              <p>A training app that simulates the multitasking test used in airline cadet-pilot assessments.</p>
+              <ul>
+                <li>Runs <b>three tasks at once</b>: visual reflex, short-term memory and audio odd/even tracking.</li>
+                <li><b>Joystick</b>, keyboard and on-screen input; tracks correct, wrong and missed responses.</li>
+                <li>Configurable timings saved to JSON; shipped as a Windows executable.</li>
+              </ul>
+              <div class="stack"><span class="chip">Python</span><span class="chip">Tkinter</span><span class="chip">Audio</span><span class="chip">Gamepad input</span></div>
+              <div class="links">
+                <a class="btn small" href="https://github.com/cihansezerozkamer/PegasusNum-Pad" target="_blank" rel="noopener">Source code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Beach Volleyball -->
+          <article class="card reveal" data-cat="pc">
+            <button class="thumb" type="button" data-gallery="assets/thumbs/Beachvolley.jpg" data-title="Beach Volleyball">
+              <img src="assets/thumbs/Beachvolley.jpg" alt="Beach Volleyball split-screen screenshot" loading="lazy" style="object-position: top;">
+            </button>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Academic · Final project</span><span class="tag">PC</span><span class="tag">2023</span></div>
+              <h3>Beach Volleyball – Local Multiplayer</h3>
+              <p class="sub">Solo developer · Fundamental Game Development course</p>
+              <p>A split-screen, two-player beach volleyball game on a single PC.</p>
+              <ul>
+                <li>Full <b>animation pipeline</b>: FBX import, retargeting, Animator controllers and smooth transitions.</li>
+                <li>Split-screen cameras and two-player input; low-poly art in <b>URP</b> for performance.</li>
+              </ul>
+              <div class="stack"><span class="chip">Unity URP</span><span class="chip">C#</span><span class="chip">Animator</span><span class="chip">Local multiplayer</span></div>
+              <div class="links">
+                <a class="btn small" href="https://github.com/cihansezerozkamer/BeachVolleyball" target="_blank" rel="noopener">Source code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Age of Vehicles -->
+          <article class="card reveal" data-cat="pc">
+            <button class="thumb" type="button" data-gallery="assets/thumbs/car1.jpg,assets/thumbs/car12.jpg,assets/thumbs/car25.jpg,assets/thumbs/car2.jpg" data-title="Age of Vehicles">
+              <img src="assets/thumbs/car1.jpg" alt="Age of Vehicles screenshot" loading="lazy">
+              <span class="count">4 images</span>
+            </button>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Academic · Game Design course</span><span class="tag">PC</span><span class="tag">2021–22</span></div>
+              <h3>Age of Vehicles – Endless Driver</h3>
+              <p class="sub">Solo developer · Design &amp; programming</p>
+              <p>A top-down endless driving game where you progress through eras – from a wooden cart collecting fruit to the Space Age.</p>
+              <ul>
+                <li>Implemented <b>vehicle wheel physics</b> tuned for each era's vehicles.</li>
+                <li>Built a <b>save system</b> to keep player progress between eras and sessions.</li>
+                <li>Procedural road/item generation for replayability.</li>
+              </ul>
+              <div class="stack"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">Physics</span><span class="chip">Save system</span></div>
+            </div>
+          </article>
+
+          <!-- AI agents -->
+          <article class="card reveal" data-cat="web">
+            <div class="thumb placeholder" aria-hidden="true">{ agent }</div>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Personal projects · Ongoing</span><span class="tag">Software</span><span class="tag">2026</span></div>
+              <h3>AI Agent &amp; Browser Automation</h3>
+              <p class="sub">Solo developer · Python</p>
+              <p>Python-based software agents that combine LLMs with external systems to automate multi-step tasks.</p>
+              <ul>
+                <li>Integrating <b>LLMs, REST APIs</b> and structured <b>JSON</b> data with browser automation workflows.</li>
+                <li>Focus on modular implementation, debugging and reliable interaction with external systems.</li>
+              </ul>
+              <div class="stack"><span class="chip">Python</span><span class="chip">LLM APIs</span><span class="chip">REST</span><span class="chip">JSON</span><span class="chip">Browser automation</span></div>
+            </div>
+          </article>
+
+          <!-- Thesis -->
+          <article class="card reveal" data-cat="web">
+            <div class="thumb placeholder" aria-hidden="true">A*</div>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Bachelor's thesis</span><span class="tag">Algorithms</span><span class="tag">2023</span></div>
+              <h3>Pathfinding in Games – DFS, BFS &amp; A*</h3>
+              <p class="sub">Author · Muğla Sıtkı Koçman University</p>
+              <p>Implemented and compared classic search algorithms inside interactive game environments.</p>
+              <ul>
+                <li>Implemented <b>DFS, BFS and A*</b> and analysed their behaviour across gameplay scenarios.</li>
+                <li>Compared performance and solution quality, applying data structures to real-time applications.</li>
+              </ul>
+              <div class="stack"><span class="chip">C#</span><span class="chip">Unity</span><span class="chip">Algorithms</span><span class="chip">Data structures</span></div>
+            </div>
+          </article>
+
+          <!-- Workout tracker -->
+          <article class="card reveal" data-cat="web">
+            <div class="thumb placeholder" aria-hidden="true">kg ↑</div>
+            <div class="body">
+              <div class="tags"><span class="tag ctx">Personal project</span><span class="tag">Web</span><span class="tag">2026</span></div>
+              <h3>Workout Tracker</h3>
+              <p class="sub">Solo developer · React single-page app</p>
+              <p>A weight-tracking web app for progressive overload on a Push / Pull / Full Body programme.</p>
+              <ul>
+                <li>Built with <b>React 18</b> and deployed to GitHub Pages.</li>
+              </ul>
+              <div class="stack"><span class="chip">React</span><span class="chip">JavaScript</span><span class="chip">GitHub Pages</span></div>
+              <div class="links">
+                <a class="btn small primary" href="https://cihansezerozkamer.github.io/agirlik-takip/" target="_blank" rel="noopener">Live app ↗</a>
+                <a class="btn small" href="https://github.com/cihansezerozkamer/agirlik-takip" target="_blank" rel="noopener">Source code</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
       </div>
     </section>
 
-    <section id="contact" style="background: linear-gradient(100deg, #e0e7ff 60%, #bdbdfc 100%); border-radius: 18px; box-shadow: 0 6px 28px rgba(60,60,120,0.10); padding: 2.5rem 2rem 2rem 2rem; margin: 2.5rem 0; border-left: 8px solid #8338ec;">
-      <h2 style="font-size:2.2rem; color:#3a86ff; margin-bottom:1.2rem; letter-spacing:1px; text-shadow:0 2px 8px #e0e7ff;">
-      Contact
-      </h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: flex-start;">
-      <div style="flex:1 1 260px; min-width:220px;"></div>
-        <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(60,60,120,0.08); padding: 1.5rem 1.2rem; margin-bottom: 1.2rem;">
-        <p style="font-size:1.15rem; color:#22223b; margin:0 0 0.7rem 0;">
-          <b>Email:</b> <a href="mailto:sezersezo37@gmail.com" style="color:#3a86ff; text-decoration:underline;">sezersezo37@gmail.com</a>
-        </p>
-        <p style="font-size:1.15rem; color:#22223b; margin:0;">
-          <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/cihansezerozkamer/" target="_blank" style="color:#8338ec; text-decoration:underline;">cihansezerozkamer</a>
-        </p>
-        </div>
-        <div style="margin-top:1.2rem; font-size:0.98rem; color:#4f4f6b;">
-        <span style="display:inline-block; background:#e0e7ff; color:#3a86ff; border-radius:6px; padding:0.3rem 0.8rem; font-weight:600;">
-          Let's connect!
-        </span>
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Career</p><h2>Experience</h2></div></div>
+        <div class="timeline">
+          <div class="job reveal">
+            <div class="when"><b>2026</b>Freelance</div>
+            <div>
+              <h3>Web Developer <span class="org">· İST Kesintisiz Güç</span></h3>
+              <ul>
+                <li>Designed, built and launched the company's corporate website on a custom domain.</li>
+                <li>Implemented technical SEO (structured data, sitemap, canonical/meta tags) and a content model the client can edit easily.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job reveal">
+            <div class="when"><b>Feb 2024 – Present</b>İzmir, Türkiye</div>
+            <div>
+              <h3>Operations Manager <span class="org">· Çiçek Sünger</span></h3>
+              <ul>
+                <li>Coordinate daily operations, workflows and documentation while adapting to changing priorities.</li>
+                <li>Oversee financial tracking, invoicing and reporting with a strong focus on accuracy and process quality.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job reveal">
+            <div class="when"><b>2023</b>Illertissen, Germany</div>
+            <div>
+              <h3>Web Management Intern <span class="org">· EXVAPE GmbH</span></h3>
+              <ul>
+                <li>Contributed to UI design and implementation for web portals, infographics and e-commerce interfaces.</li>
+                <li>Contributed ideas for customer-centred UX and helped prepare UI/UX workshops and presentations.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job reveal">
+            <div class="when"><b>2022</b>İzmir, Türkiye</div>
+            <div>
+              <h3>Game Developer Intern <span class="org">· No Surrender Studios</span></h3>
+              <ul>
+                <li>Designed and developed a 3D hyper-casual mobile game in C# and Unity (<a href="#projects">Bullet Rush</a>) that <b>reached over 100,000 downloads</b>.</li>
+                <li>Built object-oriented gameplay systems with the Zenject DI framework; debugged and optimised performance, reducing load times.</li>
+                <li>Integrated and deployed the Android build, validating functionality through the release workflow.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <div style="flex:2 1 340px; min-width:260px;">
-        <div style="background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(60,60,120,0.10); padding: 1.5rem 1.2rem;">
-        <h3 style="color:#8338ec; font-size:1.18rem; margin-top:0; margin-bottom:0.7rem; letter-spacing:0.5px;">
-          🎲 Guess the Secret Number!
-        </h3>
-        <p style="color:#44446b; font-size:1.05rem; margin-bottom:1rem;">
-          Try your luck! Guess a number between <b>1</b> and <b>20</b>. Can you find the secret number in 5 tries or less?
-        </p>
-        <div id="guess-game" style="display:flex; flex-direction:column; gap:0.7rem;">
-          <input id="guess-input" type="number" min="1" max="20" placeholder="Enter your guess..." style="padding:0.6rem 1rem; border-radius:8px; border:1.5px solid #bdbdfc; font-size:1.1rem; outline:none; transition:border-color 0.2s;">
-          <button id="guess-btn" style="background:#3a86ff; color:#fff; border:none; padding:0.7rem 1.2rem; border-radius:8px; font-size:1rem; cursor:pointer; font-weight:600; box-shadow:0 2px 8px rgba(60,60,120,0.08); transition:background 0.2s;">
-          Guess
-          </button>
-          <div id="guess-message" style="min-height:1.5em; font-size:1.08rem; color:#3a86ff; font-weight:600;"></div>
-          <div id="guess-tries" style="font-size:0.98rem; color:#4f4f6b;"></div>
-          <button id="guess-restart" style="display:none; background:#8338ec; color:#fff; border:none; padding:0.5rem 1rem; border-radius:8px; font-size:0.98rem; cursor:pointer; font-weight:500; margin-top:0.5rem;">
-          Play Again
-          </button>
-        </div>
-        </div>
-      </div>
-      </div>
-      <script>
-      (function(){
-        const secret = Math.floor(Math.random() * 20) + 1;
-        let tries = 0, maxTries = 5, finished = false;
-        const input = document.getElementById('guess-input');
-        const btn = document.getElementById('guess-btn');
-        const msg = document.getElementById('guess-message');
-        const triesDiv = document.getElementById('guess-tries');
-        const restart = document.getElementById('guess-restart');
-        function updateTries() {
-        triesDiv.textContent = `Tries left: ${maxTries - tries}`;
-        }
-        function endGame(win) {
-        finished = true;
-        btn.disabled = true;
-        input.disabled = true;
-        restart.style.display = 'inline-block';
-        msg.style.color = win ? '#2ecc40' : '#e63946';
-        msg.textContent = win ? '🎉 Congratulations! You guessed it!' : `❌ Out of tries! The number was ${secret}.`;
-        }
-        btn.onclick = function() {
-        if (finished) return;
-        const val = parseInt(input.value, 10);
-        if (isNaN(val) || val < 1 || val > 20) {
-          msg.style.color = '#e63946';
-          msg.textContent = 'Please enter a valid number (1-20).';
-          return;
-        }
-        tries++;
-        if (val === secret) {
-          endGame(true);
-        } else if (tries >= maxTries) {
-          endGame(false);
-        } else {
-          msg.style.color = '#3a86ff';
-          msg.textContent = val < secret ? 'Too low! Try again.' : 'Too high! Try again.';
-          updateTries();
-        }
-        input.value = '';
-        input.focus();
-        };
-        restart.onclick = function() {
-        window.location.reload();
-        };
-        input.addEventListener('keydown', function(e){
-        if (e.key === 'Enter') btn.click();
-        });
-        updateTries();
-      })();
-      </script>
     </section>
-    <footer class="certificate" aria-labelledby="certificate-title">
-      <h2 id="certificate-title">Certificate</h2>
-      <a href="https://verified.sertifier.com/tr/verify/04207182369004/" target="_blank" rel="noopener noreferrer">
-        <img src="https://verified-bucket.s3.eu-central-1.amazonaws.com/cert/04207182369004.png" alt="Cihan Sezer Özkamer's certificate — click to verify on Sertifier" loading="lazy" decoding="async">
-      </a>
-    </footer>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Toolbox</p><h2>Skills</h2></div></div>
+        <div class="skills">
+          <div class="skill-box reveal">
+            <h3>Core</h3>
+            <p class="lvl">Proficient · used in most projects</p>
+            <div class="stack"><span class="chip">C#</span><span class="chip">Unity</span><span class="chip">OOP</span><span class="chip">SOLID</span><span class="chip">Design patterns</span><span class="chip">Algorithms &amp; data structures</span><span class="chip">Debugging</span><span class="chip">Performance optimisation</span><span class="chip">Git / Bitbucket</span></div>
+          </div>
+          <div class="skill-box reveal">
+            <h3>Also comfortable with</h3>
+            <p class="lvl">Competent · shipped work</p>
+            <div class="stack"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">C</span><span class="chip">JavaScript</span><span class="chip">React</span><span class="chip">HTML &amp; CSS</span><span class="chip">REST APIs</span><span class="chip">JSON</span><span class="chip">Zenject</span><span class="chip">Testing (integration &amp; functional)</span><span class="chip">SEO</span></div>
+          </div>
+          <div class="skill-box reveal">
+            <h3>Growing</h3>
+            <p class="lvl">Actively learning</p>
+            <div class="stack"><span class="chip">LLM integration</span><span class="chip">AI agents</span><span class="chip">Browser automation</span><span class="chip">VR / OpenXR</span><span class="chip">German</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION + ABOUT -->
+    <section id="education">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Background</p><h2>Education &amp; Certificates</h2></div></div>
+        <div class="two">
+          <div class="panel reveal">
+            <h3>Education</h3>
+            <div class="item">
+              <b>M.Sc. Computer Engineering – Universität Duisburg-Essen</b>
+              <span>2026 – present · International Studies in Engineering (ISE) · Specialisation: Interactive Systems and Visualization</span><br>
+              <span>Currently enrolled as a language student ahead of full master's admission</span>
+            </div>
+            <div class="item">
+              <b>BSc Computer Engineering</b>
+              <span>Muğla Sıtkı Koçman University · 2019 – 2023 · GPA 3.2 / 4.0 · 251 ECTS</span><br>
+              <span>Thesis: Use of DFS, BFS and A* pathfinding in games</span>
+            </div>
+            <h3 style="margin-top:22px">Languages</h3>
+            <div class="lang"><b>Turkish</b><span>Native</span></div>
+            <div class="lang"><b>English</b><span>C1</span></div>
+            <div class="lang"><b>German</b><span>A1 (Goethe, 90/100 – sehr gut) · learning</span></div>
+          </div>
+          <div class="panel reveal">
+            <h3>Certificates &amp; events</h3>
+            <div class="item">
+              <b>Goethe-Zertifikat A1</b>
+              <span>2026 · Overall result 90 / 100 – sehr gut</span>
+            </div>
+            <div class="item">
+              <b>Game Developer Bootcamp (Unity) – Techcareer</b>
+              <span>2023 · Junior Game Developer certificate · <a href="https://verified.sertifier.com/tr/verify/04207182369004/" target="_blank" rel="noopener">Verify ↗</a></span>
+            </div>
+            <div class="item">
+              <b>Full-Stack Web Developer – Boğaziçi University (MEXT BİL-İşim)</b>
+              <span>Nov – Dec 2022 · <a href="https://esertifika.boun.edu.tr/sertifikagoruntule/MzMzOTE4MjQzMDY=/TVRXRyUzQUQyMiUzQVkwMDAxMjA=" target="_blank" rel="noopener">Verify ↗</a></span>
+            </div>
+            <div class="item">
+              <b>HIT Games Conference – Berlin</b>
+              <span>Dec 2023 · Attendee at a European games industry conference (300+ gaming brands)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel about reveal" style="margin-top:16px">
+          <h3>About me</h3>
+          <p>I'm a computer engineer who enjoys turning ideas into <b>well-structured, working software</b>. My internship taught me how a studio ships a product used by <b>100,000+ people</b>, and my thesis on DFS, BFS and A* gave me a solid base in <b>algorithms and real-time systems</b>.</p>
+          <p>Beyond games I build practical tools – Python agents that combine LLMs, REST APIs and browser automation, a cadet-pilot test simulator, and an SEO-optimised website for a real client. Managing operations at a company since 2024 has taught me <b>ownership, documentation and accuracy</b>. I'm now based in Darmstadt, learning German and preparing for my M.Sc. at UDE.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact reveal">
+          <div>
+            <h2>Let's work together</h2>
+            <p>Looking for a C# / Python software engineer in Germany? I'd love to hear from you.</p>
+          </div>
+          <div class="cta">
+            <a class="btn primary" href="mailto:sezersezo37@gmail.com">✉️ sezersezo37@gmail.com</a>
+            <a class="btn" href="https://www.linkedin.com/in/cihansezerozkamer/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="Cihan_Sezer_Ozkamer_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Cihan Sezer Özkamer · Built with HTML, CSS &amp; JavaScript</footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <button class="prev" type="button" aria-label="Previous image">‹</button>
+    <img alt="">
+    <button class="next" type="button" aria-label="Next image">›</button>
+    <div class="caption"></div>
   </div>
+
   <script>
-    // Scroll effect for nav highlighting
-    const navLinks = document.querySelectorAll('nav a');
-    const sections = Array.from(document.querySelectorAll('section'));
-    window.addEventListener('scroll', () => {
-      let scrollPos = window.scrollY + 120;
-      sections.forEach((section, idx) => {
-        if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-          navLinks.forEach(link => link.classList.remove('active'));
-          navLinks[idx].classList.add('active');
-        }
-      });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Project filters
+    const filterBtns = document.querySelectorAll('.filters button');
+    const cards = document.querySelectorAll('.card');
+    filterBtns.forEach(btn => btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.setAttribute('aria-pressed', b === btn));
+      const f = btn.dataset.filter;
+      cards.forEach(c => { c.hidden = f !== 'all' && c.dataset.cat !== f; });
+    }));
+
+    // Lightbox gallery
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    const lbCap = lb.querySelector('.caption');
+    let gallery = [], idx = 0, title = '';
+    function show() {
+      lbImg.src = gallery[idx];
+      lbCap.textContent = gallery.length > 1 ? `${title} · ${idx + 1} / ${gallery.length}` : title;
+      lb.querySelector('.prev').hidden = lb.querySelector('.next').hidden = gallery.length < 2;
+    }
+    function step(d) { idx = (idx + d + gallery.length) % gallery.length; show(); }
+    function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    document.querySelectorAll('[data-gallery]').forEach(el => el.addEventListener('click', () => {
+      gallery = el.dataset.gallery.split(','); idx = 0; title = el.dataset.title;
+      show(); lb.classList.add('open'); document.body.style.overflow = 'hidden';
+    }));
+    lb.querySelector('.close').onclick = close;
+    lb.querySelector('.prev').onclick = () => step(-1);
+    lb.querySelector('.next').onclick = () => step(1);
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
     });
 
-    // Animate projects on scroll
-    const projects = document.querySelectorAll('.project');
-    const animateProjects = () => {
-      projects.forEach(proj => {
-        const rect = proj.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 80) {
-          proj.style.opacity = 1;
-          proj.style.transform = 'translateY(0)';
-        }
-      });
-    };
-    window.addEventListener('scroll', animateProjects);
-    window.addEventListener('DOMContentLoaded', animateProjects);
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Active nav link
+    const navLinks = document.querySelectorAll('.topnav a[href^="#"]');
+    const navIo = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }), { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('main section[id]').forEach(s => navIo.observe(s));
   </script>
 </body>
 </html>
