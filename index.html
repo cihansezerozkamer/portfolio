@@ -277,6 +277,18 @@
       .btn:hover { transform: none; }
     }
     @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } html { scroll-behavior: auto; } }
+      /* CV language menu */
+    .cv-menu { position: relative; display: inline-block; }
+    .cv-menu > button { cursor: pointer; font-family: inherit; }
+    .cv-menu .caret { font-size: .75em; opacity: .85; }
+    .cv-list { position: absolute; top: calc(100% + 6px); left: 0; z-index: 60; min-width: 170px; padding: 6px;
+      display: flex; flex-direction: column; gap: 2px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; box-shadow: var(--shadow); }
+    .cv-list[hidden] { display: none; }
+    .cv-menu.right .cv-list { left: auto; right: 0; }
+    .cv-list a, .topnav .cv-list a:not(.btn) { display: block; padding: 9px 12px; border-radius: 8px; color: var(--text);
+      text-decoration: none; font-size: .92rem; font-weight: 500; white-space: nowrap; }
+    .cv-list a:hover, .cv-list a:focus-visible { background: var(--surface-2); color: var(--text); }
   </style>
 </head>
 <body>
@@ -289,7 +301,14 @@
         <a href="#skills">Skills</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
-        <a class="btn small primary" href="Cihan_Sezer_Ozkamer_CV.pdf" target="_blank" rel="noopener">CV</a>
+        <div class="cv-menu right">
+          <button type="button" class="btn small primary" aria-haspopup="true" aria-expanded="false">CV <span class="caret" aria-hidden="true">▾</span></button>
+          <div class="cv-list" role="menu" hidden>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_EN.pdf" target="_blank" rel="noopener">🇬🇧 English</a>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_DE.pdf" target="_blank" rel="noopener">🇩🇪 Deutsch</a>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_TR.pdf" target="_blank" rel="noopener">🇹🇷 Türkçe</a>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
@@ -308,10 +327,14 @@
         <b>M.Sc. Computer Engineering at Universität Duisburg-Essen</b>.
       </p>
       <div class="cta">
-        <a class="btn primary" href="Cihan_Sezer_Ozkamer_CV.pdf" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
-          Download CV
-        </a>
+        <div class="cv-menu">
+          <button type="button" class="btn primary" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg> Download CV <span class="caret" aria-hidden="true">▾</span></button>
+          <div class="cv-list" role="menu" hidden>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_EN.pdf" target="_blank" rel="noopener">🇬🇧 English</a>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_DE.pdf" target="_blank" rel="noopener">🇩🇪 Deutsch</a>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_TR.pdf" target="_blank" rel="noopener">🇹🇷 Türkçe</a>
+          </div>
+        </div>
         <a class="btn" href="#projects">View projects</a>
         <a class="btn" href="https://www.linkedin.com/in/cihansezerozkamer/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.1 1.43-2.1 2.9V21H9z"/></svg>
@@ -774,7 +797,14 @@
           <div class="cta">
             <a class="btn primary" href="mailto:sezersezo37@gmail.com">✉️ sezersezo37@gmail.com</a>
             <a class="btn" href="https://www.linkedin.com/in/cihansezerozkamer/" target="_blank" rel="noopener">LinkedIn</a>
-            <a class="btn" href="Cihan_Sezer_Ozkamer_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+            <div class="cv-menu">
+          <button type="button" class="btn" aria-haspopup="true" aria-expanded="false">CV (PDF) <span class="caret" aria-hidden="true">▾</span></button>
+          <div class="cv-list" role="menu" hidden>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_EN.pdf" target="_blank" rel="noopener">🇬🇧 English</a>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_DE.pdf" target="_blank" rel="noopener">🇩🇪 Deutsch</a>
+            <a role="menuitem" href="CV_Cihan_Sezer_Ozkamer_TR.pdf" target="_blank" rel="noopener">🇹🇷 Türkçe</a>
+          </div>
+        </div>
           </div>
         </div>
       </div>
@@ -842,6 +872,30 @@
       if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
     }), { rootMargin: '-40% 0px -55% 0px' });
     document.querySelectorAll('main section[id]').forEach(s => navIo.observe(s));
+  </script>
+<script>
+  (function () {
+    var menus = document.querySelectorAll('.cv-menu');
+    function closeAll(except) {
+      menus.forEach(function (m) {
+        if (m === except) return;
+        m.querySelector('.cv-list').hidden = true;
+        m.querySelector('button').setAttribute('aria-expanded', 'false');
+      });
+    }
+    menus.forEach(function (m) {
+      var btn = m.querySelector('button'), list = m.querySelector('.cv-list');
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = list.hidden;
+        closeAll(m);
+        list.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+    document.addEventListener('click', function () { closeAll(null); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+  })();
   </script>
 </body>
 </html>
